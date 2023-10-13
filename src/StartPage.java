@@ -18,21 +18,23 @@ public class StartPage {
         buttons.add(old);
         frame.getContentPane().add(buttons);
         frame.setJMenuBar(new JMenuBar());
-        Menu menu = new Menu();
-        frame.setJMenuBar(menu.menuBar);
+        frame.setJMenuBar(Main.menu.menuBar);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         fresh.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                frame.dispose();
                 new CalendarMonthly();
             }
         });
         old.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.showSaveDialog(null);
+                Main.lastChoosen = fileChooser.getSelectedFile();
             }
         });
     }

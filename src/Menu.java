@@ -1,4 +1,6 @@
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
 public class Menu {
@@ -9,6 +11,14 @@ public class Menu {
         JMenuItem load = new JMenuItem("Load");
         JMenuItem save = new JMenuItem("Save");
         file.add(load);
+        load.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.showSaveDialog(null);
+                Main.lastChoosen = fileChooser.getSelectedFile();
+            }
+        });
         file.add(save);
         menuBar.add(file);
         JMenu view = new JMenu("View");
@@ -23,9 +33,7 @@ public class Menu {
         JMenuItem web = new JMenuItem("How to use");
         help.add(web);
         menuBar.add(help);
-    }
-    JMenuBar getMenuBar(){
-        return menuBar;
+        JMenu settings = new JMenu("Settings");
     }
 
 }
