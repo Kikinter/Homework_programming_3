@@ -11,7 +11,7 @@ public class CalendarMonthly {
         frame.setJMenuBar(Main.menu.menuBar);
 
         ArrayList<JButton> days = new ArrayList<>();
-        for(int i=0; i<Main.dateShown.month.length(Main.dateShown.year.isLeap()); i++){
+        for(int i = 0; i< Main.dateShown.getMonth().length(Main.dateShown.isLeapYear()); i++){
             String num = Integer.toString(i+1);
             days.add(new JButton(num));
             days.get(i).setBounds(i*100,0,100,100);
