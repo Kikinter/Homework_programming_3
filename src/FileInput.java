@@ -1,10 +1,10 @@
 public class FileInput {
     FileInput(){
         try{
-            String[] fileName = Main.lastChosen.getName().split(".");
-            String extention = new String();
+            String[] fileName = Main.lastChosen.getName().split("\\.");
+            String extention = null;
             if(fileName.length == 2) extention = fileName[1];
-            if(extention == null || extention == "txt" || extention == "xml"){
+            if(extention == null || extention.equals("txt") || extention.equals("xml") || extention.equals("json")){
                 UserFeedback feedback = new UserFeedback();
                 if(!Main.changed || feedback.ask()){
 

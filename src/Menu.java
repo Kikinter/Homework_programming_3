@@ -17,7 +17,7 @@ public class Menu {
                 JFileChooser fileChooser = new JFileChooser();
                 fileChooser.showSaveDialog(null);
                 Main.lastChosen = fileChooser.getSelectedFile();
-                if(Main.changed == false){
+                if(!Main.changed){
                     FileInput in = new FileInput();
                 }
                 else {
