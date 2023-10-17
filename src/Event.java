@@ -1,9 +1,9 @@
 public class Event {
-    private boolean favourite = false;
-    private String name;
-    private String description;
-    private Date start;
-    private Date end;
+    boolean favourite = false;
+    String name;
+    String description;
+    Date start;
+    Date end;
 
     Event(boolean favourite, String name, String description, Date start, Date end){
         this.favourite = favourite;
@@ -14,5 +14,9 @@ public class Event {
     }
     Date getStart(){
         return start;
+    }
+    @Override
+    public String toString(){
+        return this.name;
     }
 }

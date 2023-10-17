@@ -16,7 +16,27 @@ public class Menu {
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fileChooser = new JFileChooser();
                 fileChooser.showSaveDialog(null);
-                Main.lastChoosen = fileChooser.getSelectedFile();
+                Main.lastChosen = fileChooser.getSelectedFile();
+                if(Main.changed == false){
+                    FileInput in = new FileInput();
+                }
+                else {
+
+                }
+            }
+        });
+        save.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.showSaveDialog(null);
+                Main.lastChosen = fileChooser.getSelectedFile();
+                if(Main.events.size() == 0){
+                    FileError err = new FileError(new Exception("No events to save"));
+                }
+                else {
+                    FileOutput out = new FileOutput();
+                }
             }
         });
         file.add(save);

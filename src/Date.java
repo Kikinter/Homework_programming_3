@@ -37,4 +37,9 @@ public class Date {
         DayOfWeek dayOfWeek = localDate.getDayOfWeek();
         return dayOfWeek.toString();
     }
+
+    boolean equals(Date d){
+        if(this.year == d.year && this.month == d.month && this.day == d.day) return true;
+        return false;
+    }
 }

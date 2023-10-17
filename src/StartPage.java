@@ -2,11 +2,24 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class StartPage {
     StartPage(){
         JFrame frame = new JFrame("Calendar");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                if(Main.changed) {
+                    UserFeedback userFeedback = new UserFeedback();
+                    boolean confirm = userFeedback.ask();
+                    if (confirm) frame.dispose();
+                }
+                else frame.dispose();
+            }
+        });
         frame.setPreferredSize(new Dimension(1000, 800));
         JPanel buttons = new JPanel();
         buttons.setLayout(null);
@@ -34,7 +47,8 @@ public class StartPage {
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fileChooser = new JFileChooser();
                 fileChooser.showSaveDialog(null);
-                Main.lastChoosen = fileChooser.getSelectedFile();
+                Main.lastChosen = fileChooser.getSelectedFile();
+                FileInput in = new FileInput();
             }
         });
     }
