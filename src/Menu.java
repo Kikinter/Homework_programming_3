@@ -1,8 +1,4 @@
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-
 public class Menu {
     JMenuBar menuBar;
     Menu(){
@@ -11,35 +7,30 @@ public class Menu {
         JMenuItem load = new JMenuItem("Load");
         JMenuItem save = new JMenuItem("Save");
         file.add(load);
-        load.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser fileChooser = new JFileChooser();
-                fileChooser.showSaveDialog(null);
-                Main.lastChosen = fileChooser.getSelectedFile();
-                if(!Main.changed){
-                    FileInput in = new FileInput();
-                }
-                else {
-
-                }
-            }
-        });
-        save.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser fileChooser = new JFileChooser();
-                fileChooser.showSaveDialog(null);
-                Main.lastChosen = fileChooser.getSelectedFile();
-                if(Main.events.size() == 0){
-                    FileError err = new FileError(new Exception("No events to save"));
-                }
-                else {
-                    FileOutput out = new FileOutput();
-                }
-            }
-        });
         file.add(save);
+        load.addActionListener(e -> {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.showSaveDialog(null);
+            Main.lastChosen = fileChooser.getSelectedFile();
+            if(!Main.changed){
+                new FileInput();
+            }
+            else {
+                if(new UserFeedback().ask()) new FileInput();
+            }
+        });
+        save.addActionListener(e -> {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.showSaveDialog(null);
+            Main.lastChosen = fileChooser.getSelectedFile();
+            if(Main.events.size() == 0){
+                new ErrorMessage(new Exception("No events to save"));
+            }
+            else {
+                new FileOutput();
+            }
+        });
+
         menuBar.add(file);
         JMenu view = new JMenu("View");
         JMenuItem month = new JMenuItem("Montly");
@@ -48,12 +39,19 @@ public class Menu {
         view.add(month);
         view.add(week);
         view.add(favourites);
+        month.addActionListener(e -> {
+
+        });
+        week.addActionListener(e -> {
+
+        });
+        favourites.addActionListener(e -> Main.events.favouriteVisible = favourites.isSelected());
         menuBar.add(view);
         JMenu help = new JMenu("Help");
         JMenuItem web = new JMenuItem("How to use");
         help.add(web);
         menuBar.add(help);
-        JMenu settings = new JMenu("Settings");
+        new JMenu("Settings");
     }
 
 }

@@ -10,7 +10,7 @@ public class FileOutput {
             }
             else throw new Exception("Wrong type of extention");
         } catch (Exception e){
-            FileError err = new FileError(e);
+            new ErrorMessage(e);
         }
     }
 }

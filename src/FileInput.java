@@ -10,9 +10,9 @@ public class FileInput {
 
                 }
             }
-            else throw new Exception("Can't open file");
+            else throw new Exception("Wrong extention");
         } catch (Exception e){
-            FileError err = new FileError(e);
+            new ErrorMessage(e);
         }
     }
 }

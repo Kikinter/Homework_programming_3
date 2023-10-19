@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -35,21 +33,15 @@ public class StartPage {
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-        fresh.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frame.dispose();
-                new CalendarMonthly();
-            }
+        fresh.addActionListener(e -> {
+            frame.dispose();
+            new CalendarMonthly();
         });
-        old.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser fileChooser = new JFileChooser();
-                fileChooser.showSaveDialog(null);
-                Main.lastChosen = fileChooser.getSelectedFile();
-                FileInput in = new FileInput();
-            }
+        old.addActionListener(e -> {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.showSaveDialog(null);
+            Main.lastChosen = fileChooser.getSelectedFile();
+            new FileInput();
         });
     }
 

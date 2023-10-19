@@ -1,7 +1,5 @@
 import java.io.File;
 import java.time.LocalDate;
-
-
 public class Main {
     static Menu menu = new Menu();
     static LocalDate dateShown = LocalDate.now();
@@ -9,6 +7,6 @@ public class Main {
     static EventContainer events = new EventContainer();
     static boolean changed = false;
     public static void main(String[] args) {
-        StartPage p = new StartPage();
+        new StartPage();
     }
 }

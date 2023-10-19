@@ -2,10 +2,9 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.LinkedList;
-import java.util.Objects;
-
 public class EventContainer implements Serializable{
     private LinkedList<Event> events = new LinkedList<>();
+    boolean favouriteVisible = true;
     void add(Event e){
         events.add(e);
         Main.changed = true;
@@ -17,8 +16,8 @@ public class EventContainer implements Serializable{
         LinkedList<Event> closeEvents= new LinkedList<>();
         LocalDate current = LocalDate.now();
         for (Event event : events){
-            long difference = ChronoUnit.DAYS.between(event.day, current);
-            if( difference <= days && event.day.isAfter(current)){
+            long difference = ChronoUnit.DAYS.between(event.startDate, current);
+            if( difference <= days && event.startDate.isAfter(current)){
                 closeEvents.add(event);
             }
         }
@@ -27,10 +26,9 @@ public class EventContainer implements Serializable{
     int size(){
         return events.size();
     }
-
     boolean contains(LocalDate d) {
         for (Event e : events) {
-            if (d.equals(e.day)) return true;
+            if (d.equals(e.startDate)) return true;
         }
         return false;
     }
