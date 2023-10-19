@@ -1,10 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class OpenEvent {
-    OpenEvent(LocalDate date){
+    OpenEvent(LocalDateTime date){
         JFrame frame = new JFrame("Events");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setPreferredSize(new Dimension(300, 800));

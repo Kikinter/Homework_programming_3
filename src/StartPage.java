@@ -28,8 +28,6 @@ public class StartPage {
         buttons.add(fresh);
         buttons.add(old);
         frame.getContentPane().add(buttons);
-        frame.setJMenuBar(new JMenuBar());
-        frame.setJMenuBar(Main.menu.menuBar);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);

@@ -1,8 +1,9 @@
 import java.io.File;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 public class Main {
     static Menu menu = new Menu();
-    static LocalDate dateShown = LocalDate.now();
+    static LocalDateTime dateShown = LocalDateTime.now();
     static File lastChosen = new File("new.txt");
     static EventContainer events = new EventContainer();
     static boolean changed = false;

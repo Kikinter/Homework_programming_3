@@ -40,10 +40,10 @@ public class Menu {
         view.add(week);
         view.add(favourites);
         month.addActionListener(e -> {
-
+            new CalendarMonthly();
         });
         week.addActionListener(e -> {
-
+            new CalendarWeekly();
         });
         favourites.addActionListener(e -> Main.events.favouriteVisible = favourites.isSelected());
         menuBar.add(view);
