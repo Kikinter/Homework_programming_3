@@ -21,16 +21,23 @@ public class StartPage {
         frame.setPreferredSize(new Dimension(1000, 800));
         JPanel buttons = new JPanel();
         buttons.setLayout(null);
+        frame.setJMenuBar(new JMenuBar());
+        frame.setJMenuBar(Main.menu.menuBar);
         JButton fresh = new JButton("New calendar");
         fresh.setBounds(400,300,200,40);
         JButton old = new JButton("Load old calendar");
         old.setBounds(400,350,200,40);
         buttons.add(fresh);
         buttons.add(old);
+
+        //Frame visible
         frame.getContentPane().add(buttons);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+
+
+        //Action listeners for buttons in the middle
         fresh.addActionListener(e -> {
             frame.dispose();
             new CalendarMonthly();
@@ -41,6 +48,7 @@ public class StartPage {
             Main.lastChosen = fileChooser.getSelectedFile();
             new FileInput();
         });
+        Main.currentFrame = frame;
     }
 
 

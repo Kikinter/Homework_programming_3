@@ -78,8 +78,8 @@ public class CalendarMonthly {
         }
 
         //Buttons to go forward and backward in date set and added to panel
-        JButton backDate = getBackButton(date, days, panel, false);
-        JButton forwardDate = getBackButton(date, days, panel, true);
+        JButton backDate = getWayButton(date, days, panel, false);
+        JButton forwardDate = getWayButton(date, days, panel, true);
         panel.add(backDate);
         panel.add(forwardDate);
 
@@ -88,9 +88,10 @@ public class CalendarMonthly {
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+        Main.currentFrame = frame;
     }
 
-    private static JButton getBackButton(JLabel date, ArrayList<JButton> days, JPanel panel, boolean forward) {
+    private static JButton getWayButton(JLabel date, ArrayList<JButton> days, JPanel panel, boolean forward) {
         Icon back = new ImageIcon();
         JButton moveButton = new JButton(back);
         if(!forward)moveButton.setBounds(15, 5, 50,35);
@@ -143,8 +144,7 @@ public class CalendarMonthly {
                 panel.add(b);
             }
             panel.repaint();
-        }
-        );
+        });
         return moveButton;
     }
 }

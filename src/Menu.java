@@ -35,17 +35,16 @@ public class Menu {
         JMenu view = new JMenu("View");
         JMenuItem month = new JMenuItem("Montly");
         JMenuItem week = new JMenuItem("Weekly");
-        JCheckBox favourites = new JCheckBox("Show favourites");
         view.add(month);
         view.add(week);
-        view.add(favourites);
         month.addActionListener(e -> {
+            Main.currentFrame.dispose();
             new CalendarMonthly();
         });
         week.addActionListener(e -> {
+            Main.currentFrame.dispose();
             new CalendarWeekly();
         });
-        favourites.addActionListener(e -> Main.events.favouriteVisible = favourites.isSelected());
         menuBar.add(view);
         JMenu help = new JMenu("Help");
         JMenuItem web = new JMenuItem("How to use");
