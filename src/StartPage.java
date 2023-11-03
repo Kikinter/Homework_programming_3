@@ -6,6 +6,7 @@ import java.awt.event.WindowEvent;
 public class StartPage extends JFrame{
     StartPage(){
         this.setTitle("Calendar");
+        this.setResizable(false);
         this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         this.addWindowListener(new WindowAdapter() {
             @Override
@@ -13,9 +14,9 @@ public class StartPage extends JFrame{
                 if(Main.changed) {
                     UserFeedback userFeedback = new UserFeedback();
                     boolean confirm = userFeedback.ask();
-                    if (confirm) Main.currentFrame.dispose();
+                    if (confirm) System.exit(0);
                 }
-                else Main.currentFrame.dispose();
+                else System.exit(0);
             }
         });
         this.setPreferredSize(new Dimension(1000, 800));

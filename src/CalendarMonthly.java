@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.Year;
@@ -11,7 +13,19 @@ public class CalendarMonthly extends JFrame{
 
         //Frame,panel,menu setup
         this.setTitle("Calendar");
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setResizable(false);
+        this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                if(Main.changed) {
+                    UserFeedback userFeedback = new UserFeedback();
+                    boolean confirm = userFeedback.ask();
+                    if (confirm) System.exit(0);
+                }
+                else System.exit(0);
+            }
+        });
         this.setPreferredSize(new Dimension(714, 800));
         this.setJMenuBar(new JMenuBar());
         this.setJMenuBar(Main.menu.menuBar);
@@ -22,7 +36,7 @@ public class CalendarMonthly extends JFrame{
         //Day labels set, stored and put on panel
         ArrayList<JLabel> nameOfDays = new ArrayList<>();
         for(int i = 0; i < 7; i++){
-            nameOfDays.add(new JLabel(DayOfWeek.of(i+1).name()));
+            nameOfDays.add(new JLabel(Main.menu.daySelected.plus(i).name()));
             nameOfDays.get(i).setBounds(20 + 100*i, 40, 100,30);
         }
         for(JLabel label : nameOfDays){
@@ -35,21 +49,21 @@ public class CalendarMonthly extends JFrame{
         panel.add(date);
 
 
-        //Getting the first Monday that is before the shown date
+        //Getting the first day selected that is before the shown date
         LocalDateTime start = Main.dateShown;
         int offset = 0;
-        if(DayOfWeek.from(start) != DayOfWeek.MONDAY){
-            while (DayOfWeek.from(start) != DayOfWeek.MONDAY){
+        if(DayOfWeek.from(start) != Main.menu.daySelected){
+            while (DayOfWeek.from(start) != Main.menu.daySelected){
                 start = start.minusDays(1);
                 offset++;
             }
         }
 
-        //Getting the first sunday after the end of the month
+        //Getting the first day selected+6 after the end of the month
         LocalDateTime end = Main.dateShown.plusMonths(1).minusDays(1);
         int forwardOffset = 0;
-        if(end.getDayOfWeek() != DayOfWeek.SUNDAY){
-            while (DayOfWeek.from(end) != DayOfWeek.SUNDAY){
+        if(end.getDayOfWeek() != Main.menu.daySelected.plus(6)){
+            while (DayOfWeek.from(end) != Main.menu.daySelected.plus(6)){
                 end = end.plusDays(1);
                 forwardOffset++;
             }
@@ -108,8 +122,8 @@ public class CalendarMonthly extends JFrame{
             //First monday pre
             LocalDateTime firstMonday = Main.dateShown;
             int off = 0;
-            if(DayOfWeek.from(firstMonday) != DayOfWeek.MONDAY){
-                while (DayOfWeek.from(firstMonday) != DayOfWeek.MONDAY){
+            if(DayOfWeek.from(firstMonday) != Main.menu.daySelected){
+                while (DayOfWeek.from(firstMonday) != Main.menu.daySelected){
                     firstMonday = firstMonday.minusDays(1);
                     off++;
                 }
@@ -118,8 +132,8 @@ public class CalendarMonthly extends JFrame{
             //First sunday post
             LocalDateTime end = Main.dateShown.plusMonths(1).minusDays(1);
             int forwardOffset = 0;
-            if(end.getDayOfWeek() != DayOfWeek.SUNDAY){
-                while (DayOfWeek.from(end) != DayOfWeek.SUNDAY){
+            if(end.getDayOfWeek() != Main.menu.daySelected.plus(6)){
+                while (DayOfWeek.from(end) != Main.menu.daySelected.plus(6)){
                     end = end.plusDays(1);
                     forwardOffset++;
                 }

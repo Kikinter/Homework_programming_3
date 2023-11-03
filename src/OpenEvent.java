@@ -9,9 +9,9 @@ public class OpenEvent extends JFrame{
         //Setup frame
         this.setTitle("Events");
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        this.setPreferredSize(new Dimension(300, 800));
+        this.setPreferredSize(new Dimension(500, 600));
         this.setLayout(new BorderLayout());
-
+        this.setResizable(false);
         //Scroll panel
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -19,22 +19,22 @@ public class OpenEvent extends JFrame{
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
         //Already existing events
-        ArrayList<JLabel> labels = new ArrayList<>();
+        ArrayList<JTextArea> textAreas = new ArrayList<>();
         ArrayList<Event> events = Main.events.contains(date);
         if (!events.isEmpty()) {
             for (Event event : events) {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern(" HH:mm");
                 String formattedStartDate = event.startDate.format(formatter);
                 String formattedEndDate = event.endDate.format(formatter);
-                String labelText = "<html>" + event.name + ": " + event.description +
-                        "<br>from: " + formattedStartDate + " to: " + formattedEndDate + "</html>";
-                JLabel label = new JLabel(labelText);
-                label.setMaximumSize(new Dimension(Integer.MAX_VALUE, label.getPreferredSize().height));
-                labels.add(label);
+                String labelText = event.name + ": " + event.description +
+                        "\nfrom: " + formattedStartDate + " to: " + formattedEndDate;
+                JTextArea textArea = new JTextArea(labelText);
+                textArea.setMaximumSize(new Dimension(Integer.MAX_VALUE, textArea.getPreferredSize().height));
+                textAreas.add(textArea);
             }
         }
-        for(JLabel label : labels){
-            panel.add(label);
+        for(JTextArea textArea : textAreas){
+            panel.add(textArea);
         }
 
         

@@ -1,20 +1,33 @@
 import javax.swing.*;
 import java.awt.*;
-import java.time.DayOfWeek;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class CalendarWeekly extends JFrame{
     CalendarWeekly() {
         Main.dateShown = LocalDateTime.now();
-        if(Main.dateShown.getDayOfWeek() != DayOfWeek.MONDAY){
-            while (Main.dateShown.getDayOfWeek() != DayOfWeek.MONDAY){
+        if(Main.dateShown.getDayOfWeek() != Main.menu.daySelected){
+            while (Main.dateShown.getDayOfWeek() != Main.menu.daySelected){
                 Main.dateShown = Main.dateShown.minusDays(1);
             }
         }
         //Setup frame
         this.setTitle("Calendar");
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setResizable(false);
+        this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                if(Main.changed) {
+                    UserFeedback userFeedback = new UserFeedback();
+                    boolean confirm = userFeedback.ask();
+                    if (confirm) System.exit(0);
+                }
+                else System.exit(0);
+            }
+        });
         this.setPreferredSize(new Dimension(714, 261));
         this.setJMenuBar(new JMenuBar());
         this.setJMenuBar(Main.menu.menuBar);
@@ -24,7 +37,7 @@ public class CalendarWeekly extends JFrame{
         //Day labels set, stored and put on panel
         ArrayList<JLabel> nameOfDays = new ArrayList<>();
         for(int i = 0; i < 7; i++){
-            nameOfDays.add(new JLabel(DayOfWeek.of(i+1).name()));
+            nameOfDays.add(new JLabel(Main.menu.daySelected.plus(i).name()));
             nameOfDays.get(i).setBounds(20 + 100*i, 40, 100,30);
         }
         for(JLabel label : nameOfDays){
@@ -68,8 +81,8 @@ public class CalendarWeekly extends JFrame{
         if(!forward)moveButton.setBounds(15, 5, 50,35);
         else moveButton.setBounds(637, 5, 50,35);
         moveButton.addActionListener(e -> {
-            if(forward) Main.dateShown = Main.dateShown.plusDays(7);
-            else Main.dateShown = Main.dateShown.minusDays(7);
+            if(forward) Main.dateShown = Main.dateShown.plusDays(6);
+            else Main.dateShown = Main.dateShown.minusDays(6);
             date.setText(Main.dateShown.getYear() + " " + Main.dateShown.getMonth().name() + " " + Main.dateShown.getDayOfMonth());
             for(JButton button : days){
                 panel.remove(button);

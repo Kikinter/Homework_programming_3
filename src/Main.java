@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public class Main {
     static Menu menu = new Menu();
     static LocalDateTime dateShown = LocalDateTime.now();
-    static File lastChosen = new File("new.txt");
+    static File lastChosen = new File("");
     static EventContainer events = new EventContainer();
     static boolean changed = false;
     static Frame currentFrame;
