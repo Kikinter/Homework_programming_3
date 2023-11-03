@@ -33,7 +33,7 @@ public class Menu {
 
         menuBar.add(file);
         JMenu view = new JMenu("View");
-        JMenuItem month = new JMenuItem("Montly");
+        JMenuItem month = new JMenuItem("Monthly");
         JMenuItem week = new JMenuItem("Weekly");
         view.add(month);
         view.add(week);

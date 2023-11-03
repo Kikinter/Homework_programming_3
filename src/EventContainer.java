@@ -1,9 +1,7 @@
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.LinkedList;
 public class EventContainer implements Serializable{
     private ArrayList<Event> events = new ArrayList<>();
     boolean favouriteVisible = true;
@@ -35,8 +33,7 @@ public class EventContainer implements Serializable{
     ArrayList<Event> contains(LocalDateTime dateTime) {
         ArrayList<Event> elements = new ArrayList<>();
         for (Event e : events) {
-            if(dateTime.getYear() == e.startDate.getYear() && dateTime.getMonth() == e.startDate.getMonth() && dateTime.getDayOfMonth() == dateTime.getDayOfMonth()) elements.add(e);
-            System.out.println(e.startDate);
+            if(dateTime.getYear() == e.startDate.getYear() && dateTime.getMonth() == e.startDate.getMonth() && dateTime.getDayOfMonth() == e.startDate.getDayOfMonth()) elements.add(e);
         }
         return elements;
     }

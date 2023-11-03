@@ -3,26 +3,26 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class StartPage {
+public class StartPage extends JFrame{
     StartPage(){
-        JFrame frame = new JFrame("Calendar");
-        frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        frame.addWindowListener(new WindowAdapter() {
+        this.setTitle("Calendar");
+        this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
                 if(Main.changed) {
                     UserFeedback userFeedback = new UserFeedback();
                     boolean confirm = userFeedback.ask();
-                    if (confirm) frame.dispose();
+                    if (confirm) Main.currentFrame.dispose();
                 }
-                else frame.dispose();
+                else Main.currentFrame.dispose();
             }
         });
-        frame.setPreferredSize(new Dimension(1000, 800));
+        this.setPreferredSize(new Dimension(1000, 800));
         JPanel buttons = new JPanel();
         buttons.setLayout(null);
-        frame.setJMenuBar(new JMenuBar());
-        frame.setJMenuBar(Main.menu.menuBar);
+        this.setJMenuBar(new JMenuBar());
+        this.setJMenuBar(Main.menu.menuBar);
         JButton fresh = new JButton("New calendar");
         fresh.setBounds(400,300,200,40);
         JButton old = new JButton("Load old calendar");
@@ -31,15 +31,15 @@ public class StartPage {
         buttons.add(old);
 
         //Frame visible
-        frame.getContentPane().add(buttons);
-        frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+        this.getContentPane().add(buttons);
+        this.pack();
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
 
 
         //Action listeners for buttons in the middle
         fresh.addActionListener(e -> {
-            frame.dispose();
+            Main.currentFrame.dispose();
             new CalendarMonthly();
         });
         old.addActionListener(e -> {
@@ -48,7 +48,7 @@ public class StartPage {
             Main.lastChosen = fileChooser.getSelectedFile();
             new FileInput();
         });
-        Main.currentFrame = frame;
+        Main.currentFrame = this;
     }
 
 

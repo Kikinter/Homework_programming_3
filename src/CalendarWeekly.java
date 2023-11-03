@@ -4,7 +4,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class CalendarWeekly {
+public class CalendarWeekly extends JFrame{
     CalendarWeekly() {
         Main.dateShown = LocalDateTime.now();
         if(Main.dateShown.getDayOfWeek() != DayOfWeek.MONDAY){
@@ -13,11 +13,11 @@ public class CalendarWeekly {
             }
         }
         //Setup frame
-        JFrame frame = new JFrame("Calendar");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setPreferredSize(new Dimension(714, 261));
-        frame.setJMenuBar(new JMenuBar());
-        frame.setJMenuBar(Main.menu.menuBar);
+        this.setTitle("Calendar");
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setPreferredSize(new Dimension(714, 261));
+        this.setJMenuBar(new JMenuBar());
+        this.setJMenuBar(Main.menu.menuBar);
         JPanel panel = new JPanel();
         panel.setLayout(null);
 
@@ -42,14 +42,12 @@ public class CalendarWeekly {
             days.add(new JButton(Integer.toString(Main.dateShown.plusDays(i).getDayOfMonth())));
             days.get(i).setBounds(i * 100, 100, 100, 100);
             int offset = i;
-            days.get(i).addActionListener(e -> {
-                new OpenEvent(Main.dateShown.plusDays(offset));
-            });
+            days.get(i).addActionListener(e -> new OpenEvent(Main.dateShown.plusDays(offset)));
         }
         for (JButton b : days) {
             panel.add(b);
         }
-        frame.getContentPane().add(panel);
+        this.getContentPane().add(panel);
 
         //Forward and back buttons
         JButton backDate = getWayButton(date, days, panel, false);
@@ -58,10 +56,10 @@ public class CalendarWeekly {
         panel.add(forwardDate);
 
         //Make frame visible
-        frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-        Main.currentFrame = frame;
+        this.pack();
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
+        Main.currentFrame = this;
     }
 
     private static JButton getWayButton(JLabel date, ArrayList<JButton> days, JPanel panel, boolean forward){

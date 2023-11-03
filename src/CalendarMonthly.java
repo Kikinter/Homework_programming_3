@@ -5,16 +5,16 @@ import java.time.LocalDateTime;
 import java.time.Year;
 import java.util.ArrayList;
 
-public class CalendarMonthly {
+public class CalendarMonthly extends JFrame{
     CalendarMonthly() {
-        Main.dateShown = LocalDateTime.now().minusDays(LocalDateTime.now().getDayOfMonth()-1);
+        Main.dateShown = LocalDateTime.now().minusDays(LocalDateTime.now().getDayOfMonth()-(long)1);
 
         //Frame,panel,menu setup
-        JFrame frame = new JFrame("Calendar");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setPreferredSize(new Dimension(714, 800));
-        frame.setJMenuBar(new JMenuBar());
-        frame.setJMenuBar(Main.menu.menuBar);
+        this.setTitle("Calendar");
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setPreferredSize(new Dimension(714, 800));
+        this.setJMenuBar(new JMenuBar());
+        this.setJMenuBar(Main.menu.menuBar);
         JPanel panel = new JPanel();
         panel.setLayout(null);
 
@@ -84,11 +84,11 @@ public class CalendarMonthly {
         panel.add(forwardDate);
 
         //Frame visible
-        frame.getContentPane().add(panel);
-        frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-        Main.currentFrame = frame;
+        this.getContentPane().add(panel);
+        this.pack();
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
+        Main.currentFrame = this;
     }
 
     private static JButton getWayButton(JLabel date, ArrayList<JButton> days, JPanel panel, boolean forward) {
