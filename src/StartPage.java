@@ -23,7 +23,7 @@ public class StartPage extends JFrame{
         JPanel buttons = new JPanel();
         buttons.setLayout(null);
         this.setJMenuBar(new JMenuBar());
-        this.setJMenuBar(Main.menu.menuBar);
+        this.setJMenuBar(Main.menu);
         JButton fresh = new JButton("New calendar");
         fresh.setBounds(400,300,200,40);
         JButton old = new JButton("Load old calendar");

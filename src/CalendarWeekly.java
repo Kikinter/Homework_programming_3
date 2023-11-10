@@ -30,7 +30,7 @@ public class CalendarWeekly extends JFrame{
         });
         this.setPreferredSize(new Dimension(714, 261));
         this.setJMenuBar(new JMenuBar());
-        this.setJMenuBar(Main.menu.menuBar);
+        this.setJMenuBar(Main.menu);
         JPanel panel = new JPanel();
         panel.setLayout(null);
 

@@ -29,9 +29,20 @@ public class FileInput {
                 JPanel panel = new JPanel();
                 ArrayList<Event> events = Main.events.getCloseElement(Main.menu.days);
             }
-            else throw new Exception("Wrong extention");
+            else throw new Exception("Wrong extension");
         } catch (Exception e){
             new ErrorMessage(e);
         }
     }
+
+    private void readTxt(){
+
+    }
+    private void readXml(){
+
+    }
+    private void readJson(){
+
+    }
+
 }

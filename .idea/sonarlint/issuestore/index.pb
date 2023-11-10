@@ -21,3 +21,9 @@ B
 src/StartPage.java,8\2\82ded3322af2ccbab6d177ae538d54360f63654d
 E
 src/UserFeedback.java,8\1\813358526a346bf51c4d51eed0b7a234945d287d
+=
+src/Menu.java,1\7\1783862c1dcd4b1a1f9201a9f694213916b95bdf
+E
+src/EventActions.java,a\c\ac9d85525d286634731497e857cb7b7e9bce5332
+B
+src/FindEvent.java,1\2\12dbcd240fef05cdbd530684c5291a6480869d62

@@ -1,5 +1,16 @@
 
-`	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(×åôÒûÿÿÿÿ
-0
-java:S1220""Move this file to a named package.
-C	java:S108	")Either remove or fill this block of code.(—¼ö½úÿÿÿÿ
+g	java:S112 "FDefine and throw a dedicated exception instead of using a generic one.(”Åä»ıÿÿÿÿ8Œµ´Ì»1
+7
+java:S1220""Move this file to a named package.8…âÂ¬¹1
+i
+java:S2259
+"GA "NullPointerException" could be thrown; "extention" is nullable here.(Úÿÿıÿÿÿÿ8İö¢Ì»1
+j
+java:S1871"HThis case's code block is the same as the block for the case on line 14.(ÛªŒóıÿÿÿÿ8˜âÂ¬¹1
+j
+java:S1871"HThis case's code block is the same as the block for the case on line 14.(Ú‰ğ‘úÿÿÿÿ8˜âÂ¬¹1
+C	java:S131""Add a default case to this switch.(´ëµùùÿÿÿÿ8™âÂ¬¹1
+L
+java:S1481"*Remove this unused "panel" local variable.(ÈƒÔøøÿÿÿÿ8™âÂ¬¹1
+M
+java:S1481"+Remove this unused "events" local variable.(ùøõ¸ıÿÿÿÿ8™âÂ¬¹1

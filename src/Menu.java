@@ -2,12 +2,10 @@
 
 import javax.swing.*;
 import java.time.DayOfWeek;
-public class Menu {
-    JMenuBar menuBar;
+public class Menu extends JMenuBar{
     DayOfWeek daySelected = DayOfWeek.MONDAY;
     int days = 7;
     Menu(){
-        menuBar = new JMenuBar();
         JMenu file = new JMenu("File");
         JMenuItem load = new JMenuItem("Load");
         JMenuItem save = new JMenuItem("Save");
@@ -36,7 +34,7 @@ public class Menu {
             }
         });
 
-        menuBar.add(file);
+        this.add(file);
         JMenu view = new JMenu("View");
         JMenuItem month = new JMenuItem("Monthly");
         JMenuItem week = new JMenuItem("Weekly");
@@ -50,23 +48,13 @@ public class Menu {
             Main.currentFrame.dispose();
             new CalendarWeekly();
         });
-        menuBar.add(view);
+        this.add(view);
         JMenu help = new JMenu("Help");
         JMenuItem web = new JMenuItem("How to use");
         help.add(web);
-        menuBar.add(help);
-        JMenu settings = new JMenu("Settings");
-        JSpinner daysCounter = new JSpinner(new SpinnerNumberModel(7,0,14,1));
-        settings.add(daysCounter);
-        daysCounter.addChangeListener(e -> this.days = (int)daysCounter.getValue());
-        JMenu startDay = new JMenu("First day of the week");
-        for(int i = 0; i < 7; i++){
-            JMenuItem menuItem = new JMenuItem(DayOfWeek.of(i + 1).name());
-            startDay.add(menuItem);
-            menuItem.addActionListener(e -> Main.menu.daySelected = DayOfWeek.valueOf(menuItem.getText()));
-        }
-        settings.add(startDay);
-        menuBar.add(settings);
+        this.add(help);
+        JMenu settings = getjMenu();
+        this.add(settings);
 
         JMenu event = new JMenu("Event");
         JMenuItem add = new JMenuItem("Add");
@@ -75,9 +63,31 @@ public class Menu {
         delete.addActionListener(e -> new EventActions(EventActions.Type.DELETE));
         JMenuItem modify = new JMenuItem("Modify");
         modify.addActionListener(e -> new EventActions(EventActions.Type.MODIFY));
-        menuBar.add(event);
+        this.add(event);
         event.add(add);
         event.add(delete);
         event.add(modify);
+    }
+
+    private JMenu getjMenu() {
+        JMenu settings = new JMenu("Settings");
+        JSpinner daysCounter = new JSpinner(new SpinnerNumberModel(7,0,14,1));
+        settings.add(daysCounter);
+        daysCounter.addChangeListener(e -> this.days = (int)daysCounter.getValue());
+        JMenu startDay = new JMenu("First day of the week");
+        for(int i = 0; i < 7; i++){
+            JMenuItem menuItem = new JMenuItem(DayOfWeek.of(i + 1).name());
+            startDay.add(menuItem);
+            menuItem.addActionListener(e -> {
+                Main.menu.daySelected = DayOfWeek.valueOf(menuItem.getText());
+                Class<?> frameClass = Main.currentFrame.getClass();
+                Main.currentFrame.dispose();
+                if(frameClass == CalendarWeekly.class){
+                    Main.currentFrame = new CalendarWeekly();
+                } else Main.currentFrame = new CalendarMonthly();
+            });
+        }
+        settings.add(startDay);
+        return settings;
     }
 }

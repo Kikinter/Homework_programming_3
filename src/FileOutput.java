@@ -23,4 +23,13 @@ public class FileOutput {
             new ErrorMessage(e);
         }
     }
+    private void writeTxt(){
+
+    }
+    private void writeXml(){
+
+    }
+    private void writeJson(){
+
+    }
 }

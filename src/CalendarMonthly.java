@@ -28,7 +28,7 @@ public class CalendarMonthly extends JFrame{
         });
         this.setPreferredSize(new Dimension(714, 800));
         this.setJMenuBar(new JMenuBar());
-        this.setJMenuBar(Main.menu.menuBar);
+        this.setJMenuBar(Main.menu);
         JPanel panel = new JPanel();
         panel.setLayout(null);
 
