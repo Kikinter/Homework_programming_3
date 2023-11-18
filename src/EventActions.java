@@ -199,24 +199,28 @@ public class EventActions extends JFrame {
 
         JButton finish = new JButton(buttonText);
         finish.addActionListener(e -> {
-            if(event == null){
-                Icon iconImage = null;
-                LocalDateTime startDate = LocalDateTime.of((int)startYear.getValue(),(int)startMonth.getValue(),(int)startDay.getValue(),(int)startHour.getValue(),(int)startMinute.getValue());
-                LocalDateTime endDate = LocalDateTime.of((int)endYear.getValue(),(int)endMonth.getValue(),(int)endDay.getValue(),(int)endHour.getValue(),(int)endMinute.getValue());
-                if (iconFile != null) iconImage = new ImageIcon(iconFile.getAbsolutePath());
-                Main.events.add(new Event(favourite.isSelected(), nameField.getText(), descriptionField.getText(), startDate, endDate, (int) repeat.getValue(), iconImage));
+            if(!Main.events.duplicate(nameField.getText(),(int)startYear.getValue(),(int)startMonth.getValue(),(int)startDay.getValue())) {
+                if (event == null) {
+                    Icon iconImage = null;
+                    LocalDateTime startDate = LocalDateTime.of((int) startYear.getValue(), (int) startMonth.getValue(), (int) startDay.getValue(), (int) startHour.getValue(), (int) startMinute.getValue());
+                    LocalDateTime endDate = LocalDateTime.of((int) endYear.getValue(), (int) endMonth.getValue(), (int) endDay.getValue(), (int) endHour.getValue(), (int) endMinute.getValue());
+                    if (iconFile != null) iconImage = new ImageIcon(iconFile.getAbsolutePath());
+                    Main.events.add(new Event(favourite.isSelected(), nameField.getText(), descriptionField.getText(), startDate, endDate, (int) repeat.getValue(), iconImage));
+                } else {
+                    Main.events.remove(event);
+                    LocalDateTime startDate = LocalDateTime.of((int) startYear.getValue(), (int) startMonth.getValue(), (int) startDay.getValue(), (int) startHour.getValue(), (int) startMinute.getValue());
+                    LocalDateTime endDate = LocalDateTime.of((int) endYear.getValue(), (int) endMonth.getValue(), (int) endDay.getValue(), (int) endHour.getValue(), (int) endMinute.getValue());
+                    event.name = nameField.getText();
+                    event.description = descriptionField.getText();
+                    event.startDate = startDate;
+                    event.endDate = endDate;
+                    event.favourite = favourite.isSelected();
+                    event.daysBetween = (int) repeat.getValue();
+                    if (iconFile != null) event.icon = new ImageIcon(iconFile.getAbsolutePath());
+                    Main.events.add(event);
+                }
             } else {
-                Main.events.remove(event);
-                LocalDateTime startDate = LocalDateTime.of((int)startYear.getValue(),(int)startMonth.getValue(),(int)startDay.getValue(),(int)startHour.getValue(),(int)startMinute.getValue());
-                LocalDateTime endDate = LocalDateTime.of((int)endYear.getValue(),(int)endMonth.getValue(),(int)endDay.getValue(),(int)endHour.getValue(),(int)endMinute.getValue());
-                event.name = nameField.getText();
-                event.description = descriptionField.getText();
-                event.startDate = startDate;
-                event.endDate = endDate;
-                event.favourite = favourite.isSelected();
-                event.daysBetween = (int)repeat.getValue();
-                if(iconFile != null) event.icon = new ImageIcon(iconFile.getAbsolutePath());
-                Main.events.add(event);
+                JOptionPane.showMessageDialog(this, "The event you want to save already exists", "Duplicate", JOptionPane.INFORMATION_MESSAGE);
             }
         });
         panel5.add(new JLabel("Favourite"));

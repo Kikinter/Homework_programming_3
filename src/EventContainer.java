@@ -87,4 +87,10 @@ public class EventContainer{
             repeats.put(newEvent,event);
         }
     }
+    boolean duplicate(String name, int year, int month, int day){
+        for(Event e : events){
+            if(e.name.equals(name) && e.startDate.getYear() == year && e.startDate.getMonthValue() == month && e.startDate.getDayOfMonth() == day) return true;
+        }
+        return false;
+    }
 }
