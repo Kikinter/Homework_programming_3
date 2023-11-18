@@ -1,5 +1,7 @@
 
 7
-java:S1220""Move this file to a named package.8ıú·Ó»1
-B
-java:S1128"%Remove this unused import 'java.awt'.(ï´µ©8íãÂÓ»1
+java:S1220""Move this file to a named package.8”í¾Õ»1
+X
+java:S2696V"6Make the enclosing method "static" or remove this set.(âãØËøÿÿÿÿ8„ºâÕ»1
+X
+java:S2696W"6Make the enclosing method "static" or remove this set.(¯¿Öíùÿÿÿÿ8„ºâÕ»1
