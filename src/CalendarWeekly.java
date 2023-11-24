@@ -65,6 +65,10 @@ public class CalendarWeekly extends JFrame{
         //Forward and back buttons
         JButton backDate = getWayButton(date, days, panel, false);
         JButton forwardDate = getWayButton(date, days, panel, true);
+        ImageIcon back = new ImageIcon(new ImageIcon("resources/images/left.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+        ImageIcon forward = new ImageIcon(new ImageIcon("resources/images/right.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+        backDate.setIcon(back);
+        forwardDate.setIcon(forward);
         panel.add(backDate);
         panel.add(forwardDate);
 
@@ -81,8 +85,8 @@ public class CalendarWeekly extends JFrame{
         if(!forward)moveButton.setBounds(15, 5, 50,35);
         else moveButton.setBounds(637, 5, 50,35);
         moveButton.addActionListener(e -> {
-            if(forward) Main.dateShown = Main.dateShown.plusDays(6);
-            else Main.dateShown = Main.dateShown.minusDays(6);
+            if(forward) Main.dateShown = Main.dateShown.plusDays(7);
+            else Main.dateShown = Main.dateShown.minusDays(7);
             date.setText(Main.dateShown.getYear() + " " + Main.dateShown.getMonth().name() + " " + Main.dateShown.getDayOfMonth());
             for(JButton button : days){
                 panel.remove(button);

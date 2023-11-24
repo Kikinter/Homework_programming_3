@@ -12,9 +12,9 @@ java:S1186)"€Add a nested comment explaining why this method is empty, throw a
 £
 java:S1186,"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(’œ¬Êøÿÿÿÿ8üÖóÕ»1
 j
-java:S1871"HThis case's code block is the same as the block for the case on line 14.(Ú‰ğ‘úÿÿÿÿ8şÖóÕ»1
-j
 java:S1871"HThis case's code block is the same as the block for the case on line 14.(ÛªŒóıÿÿÿÿ8şÖóÕ»1
+j
+java:S1871"HThis case's code block is the same as the block for the case on line 14.(Ú‰ğ‘úÿÿÿÿ8şÖóÕ»1
 C	java:S131""Add a default case to this switch.(´ëµùùÿÿÿÿ8şÖóÕ»1
 L
 java:S1481"*Remove this unused "panel" local variable.(ÈƒÔøøÿÿÿÿ8ÿÖóÕ»1

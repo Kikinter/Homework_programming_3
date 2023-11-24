@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -15,26 +16,32 @@ public class OpenEvent extends JFrame{
         //Scroll panel
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        JPanel panel = new JPanel();
+        JPanel panel = new JPanel(new FlowLayout());
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
         //Already existing events
-        ArrayList<JTextArea> textAreas = new ArrayList<>();
+        ImageIcon favourite = new ImageIcon("resources/images/star_icon.png");
+        JTextArea textArea;
+        ArrayList<JPanel> panels = new ArrayList<>();
         ArrayList<Event> events = Main.events.contains(date);
         if (!events.isEmpty()) {
             for (Event event : events) {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern(" HH:mm");
+                JPanel smallPanel = new JPanel(new BorderLayout());
+                JLabel fav = new JLabel(favourite);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.hh.dd HH:mm");
                 String formattedStartDate = event.startDate.format(formatter);
                 String formattedEndDate = event.endDate.format(formatter);
-                String labelText = event.name + ": " + event.description +
-                        "\nfrom: " + formattedStartDate + " to: " + formattedEndDate;
-                JTextArea textArea = new JTextArea(labelText);
+                String labelText = event.name + ": " + event.description + "\nfrom: " + formattedStartDate + " to: " + formattedEndDate;
+                textArea = new JTextArea(labelText);
                 textArea.setMaximumSize(new Dimension(Integer.MAX_VALUE, textArea.getPreferredSize().height));
-                textAreas.add(textArea);
+                smallPanel.add(textArea);
+                if(event.icon != null) smallPanel.add(new JLabel(event.icon));
+                if(event.favourite) smallPanel.add(fav);
+                panels.add(smallPanel);
             }
         }
-        for(JTextArea textArea : textAreas){
-            panel.add(textArea);
+        for(JPanel pan : panels){
+            panel.add(pan);
         }
 
         

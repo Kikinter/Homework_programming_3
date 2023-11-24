@@ -1,17 +1,15 @@
-import java.lang.reflect.GenericDeclaration;
+import javax.swing.*;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class EventContainer{
     private ArrayList<Event> events = new ArrayList<>();
     private HashMap<Event,Event> repeats = new HashMap<>();
-    boolean favouriteVisible = true;
 
     EventContainer(){
-        Event e = new Event(false,"Christmas", "Merry Christmas!", LocalDateTime.of(LocalDateTime.now().getYear(),12,25,0,0), LocalDateTime.of(LocalDateTime.now().getYear(), 12,25,23,59),365,null);
+        Event e = new Event(false,"Christmas", "Merry Christmas!", LocalDateTime.of(LocalDateTime.now().getYear(),12,25,0,0), LocalDateTime.of(LocalDateTime.now().getYear(), 12,25,23,59),365,new ImageIcon("resources/images/tree_icon.png"));
         events.add(e);
         repeatUpdate(e);
     }

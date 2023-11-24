@@ -53,7 +53,7 @@ public class Menu extends JMenuBar{
         JMenuItem web = new JMenuItem("How to use");
         help.add(web);
         this.add(help);
-        JMenu settings = getjMenu();
+        JMenu settings = getSettings();
         this.add(settings);
 
         JMenu event = new JMenu("Event");
@@ -69,7 +69,7 @@ public class Menu extends JMenuBar{
         event.add(modify);
     }
 
-    private JMenu getjMenu() {
+    private JMenu getSettings() {
         JMenu settings = new JMenu("Settings");
         JSpinner daysCounter = new JSpinner(new SpinnerNumberModel(7,0,14,1));
         settings.add(daysCounter);
@@ -80,9 +80,8 @@ public class Menu extends JMenuBar{
             startDay.add(menuItem);
             menuItem.addActionListener(e -> {
                 Main.menu.daySelected = DayOfWeek.valueOf(menuItem.getText());
-                Class<?> frameClass = Main.currentFrame.getClass();
                 Main.currentFrame.dispose();
-                if(frameClass == CalendarWeekly.class){
+                if(Main.currentFrame instanceof CalendarWeekly){
                     Main.currentFrame = new CalendarWeekly();
                 } else Main.currentFrame = new CalendarMonthly();
             });

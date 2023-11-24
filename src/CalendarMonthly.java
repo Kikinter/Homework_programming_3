@@ -94,6 +94,10 @@ public class CalendarMonthly extends JFrame{
         //Buttons to go forward and backward in date set and added to panel
         JButton backDate = getWayButton(date, days, panel, false);
         JButton forwardDate = getWayButton(date, days, panel, true);
+        ImageIcon back = new ImageIcon(new ImageIcon("resources/images/left.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+        ImageIcon forward = new ImageIcon(new ImageIcon("resources/images/right.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+        backDate.setIcon(back);
+        forwardDate.setIcon(forward);
         panel.add(backDate);
         panel.add(forwardDate);
 
