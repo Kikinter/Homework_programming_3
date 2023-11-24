@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class CalendarWeekly extends JFrame{
     CalendarWeekly() {
         Main.dateShown = LocalDateTime.now();
+        this.setIconImage(new ImageIcon("resources/images/calendar.png").getImage());
         if(Main.dateShown.getDayOfWeek() != Main.menu.daySelected){
             while (Main.dateShown.getDayOfWeek() != Main.menu.daySelected){
                 Main.dateShown = Main.dateShown.minusDays(1);

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class CalendarMonthly extends JFrame{
     CalendarMonthly() {
         Main.dateShown = LocalDateTime.now().minusDays(LocalDateTime.now().getDayOfMonth()-(long)1);
-
+        this.setIconImage(new ImageIcon("resources/images/calendar.png").getImage());
         //Frame,panel,menu setup
         this.setTitle("Calendar");
         this.setResizable(false);

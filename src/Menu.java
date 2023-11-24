@@ -1,5 +1,3 @@
-
-
 import javax.swing.*;
 import java.time.DayOfWeek;
 public class Menu extends JMenuBar{
@@ -49,10 +47,6 @@ public class Menu extends JMenuBar{
             new CalendarWeekly();
         });
         this.add(view);
-        JMenu help = new JMenu("Help");
-        JMenuItem web = new JMenuItem("How to use");
-        help.add(web);
-        this.add(help);
         JMenu settings = getSettings();
         this.add(settings);
 

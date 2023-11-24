@@ -16,35 +16,43 @@ public class OpenEvent extends JFrame{
         //Scroll panel
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        JPanel panel = new JPanel(new FlowLayout());
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        ArrayList<Event> events = Main.events.contains(date);
+        ArrayList<JPanel> panels = new ArrayList<>();
 
         //Already existing events
-        ImageIcon favourite = new ImageIcon("resources/images/star_icon.png");
+        ImageIcon favourite = new ImageIcon(new ImageIcon("resources/images/star_icon.png").getImage().getScaledInstance(70, 70, Image.SCALE_DEFAULT));
+        ImageIcon noFavourite = new ImageIcon(new ImageIcon("resources/images/empty_star.png").getImage().getScaledInstance(70, 70, Image.SCALE_DEFAULT));
         JTextArea textArea;
-        ArrayList<JPanel> panels = new ArrayList<>();
-        ArrayList<Event> events = Main.events.contains(date);
+
         if (!events.isEmpty()) {
             for (Event event : events) {
-                JPanel smallPanel = new JPanel(new BorderLayout());
-                JLabel fav = new JLabel(favourite);
+                JPanel jPanel = new JPanel(new BorderLayout());
+                JLabel fav;
+                if(event.favourite) fav = new JLabel(favourite);
+                else fav = new JLabel(noFavourite);
+                JLabel icon = new JLabel(event.icon);
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.hh.dd HH:mm");
                 String formattedStartDate = event.startDate.format(formatter);
                 String formattedEndDate = event.endDate.format(formatter);
                 String labelText = event.name + ": " + event.description + "\nfrom: " + formattedStartDate + " to: " + formattedEndDate;
                 textArea = new JTextArea(labelText);
                 textArea.setMaximumSize(new Dimension(Integer.MAX_VALUE, textArea.getPreferredSize().height));
-                smallPanel.add(textArea);
-                if(event.icon != null) smallPanel.add(new JLabel(event.icon));
-                if(event.favourite) smallPanel.add(fav);
-                panels.add(smallPanel);
+                textArea.setEditable(false);
+                textArea.setSize(new Dimension(200,150));
+                jPanel.add(textArea,BorderLayout.WEST);
+                jPanel.add(icon,BorderLayout.CENTER);
+                jPanel.add(fav,BorderLayout.EAST);
+                panels.add(jPanel);
             }
         }
-        for(JPanel pan : panels){
-            panel.add(pan);
+
+        JPanel panel = new JPanel(new GridLayout(Math.max(panels.size(), 8),1));
+        for(JPanel p : panels){
+            panel.add(p);
         }
 
-        
 
         //Frame visible
         scrollPane.setViewportView(panel);

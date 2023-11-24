@@ -6,6 +6,8 @@ import java.awt.event.WindowEvent;
 public class StartPage extends JFrame{
     StartPage(){
         this.setTitle("Calendar");
+        this.setIconImage(new ImageIcon("resources/images/calendar.png").getImage());
+        this.getContentPane().setBackground(Color.cyan);
         this.setResizable(false);
         this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         this.addWindowListener(new WindowAdapter() {
@@ -20,19 +22,19 @@ public class StartPage extends JFrame{
             }
         });
         this.setPreferredSize(new Dimension(1000, 800));
-        JPanel buttons = new JPanel();
-        buttons.setLayout(null);
+        JPanel panel = new JPanel();
+        panel.setLayout(null);
         this.setJMenuBar(new JMenuBar());
         this.setJMenuBar(Main.menu);
         JButton fresh = new JButton("New calendar");
         fresh.setBounds(400,300,200,40);
         JButton old = new JButton("Load old calendar");
         old.setBounds(400,350,200,40);
-        buttons.add(fresh);
-        buttons.add(old);
-
+        panel.add(fresh);
+        panel.add(old);
+        ImageIcon background = new ImageIcon("resources/images/calendar_background.png");
         //Frame visible
-        this.getContentPane().add(buttons);
+        this.add(panel);
         this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);

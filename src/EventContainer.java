@@ -9,7 +9,8 @@ public class EventContainer{
     private HashMap<Event,Event> repeats = new HashMap<>();
 
     EventContainer(){
-        Event e = new Event(false,"Christmas", "Merry Christmas!", LocalDateTime.of(LocalDateTime.now().getYear(),12,25,0,0), LocalDateTime.of(LocalDateTime.now().getYear(), 12,25,23,59),365,new ImageIcon("resources/images/tree_icon.png"));
+        ImageIcon christmasTree = new ImageIcon("resources/images/tree_icon.png");
+        Event e = new Event(false,"Christmas", "Merry Christmas!", LocalDateTime.of(LocalDateTime.now().getYear(),12,25,0,0), LocalDateTime.of(LocalDateTime.now().getYear(), 12,25,23,59),365,christmasTree);
         events.add(e);
         repeatUpdate(e);
     }
