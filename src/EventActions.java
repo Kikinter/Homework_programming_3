@@ -13,7 +13,7 @@ public class EventActions extends JFrame {
         MODIFY
     }
 
-    private File iconFile = null;
+    private String iconPath = null;
 
     EventActions(Type type) {
         this.setTitle(type.name());
@@ -95,7 +95,7 @@ public class EventActions extends JFrame {
         String name,description,buttonText;
         int yearStart,monthStart,dayStart,hourStart,minuteStart, yearEnd,monthEnd,dayEnd,hourEnd,minuteEnd,repeatNumber;
         boolean selected;
-        Icon img;
+        String imgPath;
         if(event == null){
             name = "Name of the event";
             description = "Description";
@@ -112,7 +112,7 @@ public class EventActions extends JFrame {
             repeatNumber = 0;
             buttonText = "Add";
             selected = false;
-            img = null;
+            imgPath = null;
         } else {
             name = event.name;
             description = event.description;
@@ -129,7 +129,7 @@ public class EventActions extends JFrame {
             repeatNumber = event.daysBetween;
             buttonText = "Modify";
             selected = true;
-            img = event.icon;
+            imgPath = event.iconPath;
         }
 
 
@@ -192,22 +192,22 @@ public class EventActions extends JFrame {
         favourite.setSelected(selected);
         JSpinner repeat = new JSpinner(new SpinnerNumberModel(repeatNumber, 0, 365, 1));
         JButton icon = new JButton("Icon");
-        JLabel image = new JLabel(img);
+        JLabel image = new JLabel(new ImageIcon(imgPath));
         icon.addActionListener(e -> {
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setFileFilter(new FileNameExtensionFilter("Images", "jpeg", "png"));
             int returnValue = fileChooser.showSaveDialog(null);
-            if (returnValue == JFileChooser.APPROVE_OPTION) iconFile = fileChooser.getSelectedFile();
+            if (returnValue == JFileChooser.APPROVE_OPTION) iconPath = fileChooser.getSelectedFile().getAbsolutePath();
         });
 
         JButton finish = new JButton(buttonText);
         finish.addActionListener(e -> {
                 if (event == null) {
                     if(!Main.events.duplicate(nameField.getText(),(int)startYear.getValue(),(int)startMonth.getValue(),(int)startDay.getValue())) {
-                        ImageIcon iconImage = null;
+                        String iconImage = null;
                         LocalDateTime startDate = LocalDateTime.of((int) startYear.getValue(), (int) startMonth.getValue(), (int) startDay.getValue(), (int) startHour.getValue(), (int) startMinute.getValue());
                         LocalDateTime endDate = LocalDateTime.of((int) endYear.getValue(), (int) endMonth.getValue(), (int) endDay.getValue(), (int) endHour.getValue(), (int) endMinute.getValue());
-                        if (iconFile != null) iconImage = new ImageIcon(iconFile.getAbsolutePath());
+                        if (iconPath != null) iconImage = iconPath;
                         Main.events.add(new Event(favourite.isSelected(), nameField.getText(), descriptionField.getText(), startDate, endDate, (int) repeat.getValue(), iconImage));
                         Main.changed = true;
                     } else {
@@ -224,7 +224,7 @@ public class EventActions extends JFrame {
                         event.endDate = endDate;
                         event.favourite = favourite.isSelected();
                         event.daysBetween = (int) repeat.getValue();
-                        if (iconFile != null) event.icon = new ImageIcon(iconFile.getAbsolutePath());
+                        if (iconPath != null) event.iconPath = iconPath;
                         Main.events.add(event);
                         Main.changed = true;
                     } else {

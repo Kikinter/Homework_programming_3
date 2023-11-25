@@ -58,6 +58,7 @@ public class FileInput {
             List<Element> eventElements = rootElement.getChildren("event");
 
             EventContainer eventContainer = new EventContainer();
+            eventContainer.clear();
 
             for (Element eventElement : eventElements) {
                 boolean favourite = Boolean.parseBoolean(eventElement.getChildText("favourite"));
@@ -69,11 +70,10 @@ public class FileInput {
 
                 int daysBetween = Integer.parseInt(eventElement.getChildText("daysBetween"));
 
-                // Assuming your XML structure includes an "icon" element for the image path
-                String iconPath = eventElement.getChildText("icon");
-                ImageIcon icon = new ImageIcon(iconPath);
 
-                Event event = new Event(favourite, name, description, startDate, endDate, daysBetween, icon);
+                Element iconElement = eventElement.getChild("icon");
+                String iconPath = (iconElement != null) ? iconElement.getText() : null;
+                Event event = new Event(favourite, name, description, startDate, endDate, daysBetween, iconPath);
                 eventContainer.add(event);
             }
             Main.events = eventContainer;
@@ -92,6 +92,7 @@ public class FileInput {
 
                 // Populate the EventContainer
                 EventContainer eventContainer = new EventContainer();
+                eventContainer.clear();
                 for (int i = 0; i < jsonArray.size(); i++) {
                     JsonObject eventJson = jsonArray.getJsonObject(i);
 
@@ -106,11 +107,10 @@ public class FileInput {
                     LocalDateTime startDate = LocalDateTime.parse(startDateStr);
                     LocalDateTime endDate = LocalDateTime.parse(endDateStr);
 
-                    // Assuming there's a method to retrieve the icon path from JSON
-                    String iconPath = eventJson.getString("icon");
+                    String iconPath = eventJson.containsKey("icon") ? eventJson.getString("icon") : null;
 
                     // Create the Event and add it to the container
-                    Event event = new Event(favourite, name, description, startDate, endDate, daysBetween, new ImageIcon(iconPath));
+                    Event event = new Event(favourite, name, description, startDate, endDate, daysBetween, iconPath);
                     eventContainer.add(event);
                 }
 
@@ -119,7 +119,7 @@ public class FileInput {
             }
 
         } catch (IOException e) {
-            throw new Exception("Error reading JSON file", e);
+            throw new Exception("Error reading JSON file");
         }
     }
     private void openEvents(){

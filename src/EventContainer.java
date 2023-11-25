@@ -10,8 +10,7 @@ public class EventContainer implements Serializable {
     private HashMap<Event,Event> repeats = new HashMap<>();
 
     EventContainer(){
-        ImageIcon christmasTree = new ImageIcon("resources/images/tree_icon.png");
-        Event e = new Event(false,"Christmas", "Merry Christmas!", LocalDateTime.of(LocalDateTime.now().getYear(),12,25,0,0), LocalDateTime.of(LocalDateTime.now().getYear(), 12,25,23,59),365,christmasTree);
+        Event e = new Event(false,"Christmas", "Merry Christmas!", LocalDateTime.of(LocalDateTime.now().getYear(),12,25,0,0), LocalDateTime.of(LocalDateTime.now().getYear(), 12,25,23,59),365,"resources/images/tree_icon.png");
         events.add(e);
         repeatUpdate(e);
     }
@@ -83,7 +82,7 @@ public class EventContainer implements Serializable {
         while (startDay.isBefore(end)){
             startDay = startDay.plusDays(event.daysBetween);
             endDay = endDay.plusDays(event.daysBetween);
-            Event newEvent = new Event(event.favourite,event.name, event.description, startDay,endDay,event.daysBetween,event.icon);
+            Event newEvent = new Event(event.favourite,event.name, event.description, startDay,endDay,event.daysBetween,event.iconPath);
             repeats.put(newEvent,event);
         }
     }
@@ -92,5 +91,10 @@ public class EventContainer implements Serializable {
             if(e.name.equals(name) && e.startDate.getYear() == year && e.startDate.getMonthValue() == month && e.startDate.getDayOfMonth() == day) return true;
         }
         return false;
+    }
+
+    void clear(){
+        events.clear();
+        repeats.clear();
     }
 }

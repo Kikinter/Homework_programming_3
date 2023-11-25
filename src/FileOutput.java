@@ -50,10 +50,7 @@ public class FileOutput {
             eventElement.addContent(new Element("startDate").setText(event.startDate.toString()));
             eventElement.addContent(new Element("endDate").setText(event.endDate.toString()));
             eventElement.addContent(new Element("daysBetween").setText(String.valueOf(event.daysBetween)));
-            //TODO
-            /*// Convert ImageIcon to base64-encoded string
-            String iconBase64 = iconToBase64(event.icon);
-            eventElement.addContent(new Element("icon").setText(iconBase64));
+            if(event.iconPath != null)eventElement.addContent(new Element("icon").setText(event.iconPath));
             // Assuming your Event class has a method to get the icon path*/
             rootElement.addContent(eventElement);
         }
@@ -81,13 +78,7 @@ public class FileOutput {
                         .add("endDate", event.endDate.toString())
                         .add("daysBetween", event.daysBetween);
 
-                // Add icon as a base64-encoded string
-                //TODO
-                /*String iconBase64 = iconToBase64(event.icon);
-                if (iconBase64 != null) {
-                    eventBuilder.add("icon", iconBase64);
-                }*/
-
+                if(event.iconPath != null) eventBuilder.add("icon", event.iconPath);
                 // Add the event object to the array
                 jsonArrayBuilder.add(eventBuilder);
             }
