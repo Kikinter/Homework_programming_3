@@ -43,6 +43,7 @@ public class EventActions extends JFrame {
             this.setLocationRelativeTo(null);
             this.setVisible(true);
         }
+
     }
 
     private void setupDelete(JPanel panel, boolean emptyContainer){
@@ -66,9 +67,11 @@ public class EventActions extends JFrame {
                 }
                 Main.events.removeAll(delete);
                 this.dispose();
+                if(!delete.isEmpty()) Main.changed = true;
             });
             panel.add(finish, BorderLayout.SOUTH);
             this.add(panel);
+
         }
     }
 
@@ -206,6 +209,7 @@ public class EventActions extends JFrame {
                         LocalDateTime endDate = LocalDateTime.of((int) endYear.getValue(), (int) endMonth.getValue(), (int) endDay.getValue(), (int) endHour.getValue(), (int) endMinute.getValue());
                         if (iconFile != null) iconImage = new ImageIcon(iconFile.getAbsolutePath());
                         Main.events.add(new Event(favourite.isSelected(), nameField.getText(), descriptionField.getText(), startDate, endDate, (int) repeat.getValue(), iconImage));
+                        Main.changed = true;
                     } else {
                         JOptionPane.showMessageDialog(this, "The event you want to save already exists", "Duplicate", JOptionPane.INFORMATION_MESSAGE);
                     }
@@ -222,6 +226,7 @@ public class EventActions extends JFrame {
                         event.daysBetween = (int) repeat.getValue();
                         if (iconFile != null) event.icon = new ImageIcon(iconFile.getAbsolutePath());
                         Main.events.add(event);
+                        Main.changed = true;
                     } else {
                         JOptionPane.showMessageDialog(this, "The event you want to save already exists", "Duplicate", JOptionPane.INFORMATION_MESSAGE);
                     }

@@ -7,8 +7,13 @@ import java.util.ArrayList;
 
 public class OpenEvent extends JFrame{
     OpenEvent(LocalDateTime date){
+        ArrayList<Event> events = Main.events.contains(date);
+        new OpenEvent(events,"Events");
+    }
+    OpenEvent(ArrayList<Event> events, String title){
         //Setup frame
-        this.setTitle("Events");
+        this.setIconImage(new ImageIcon("resources/images/calendar.png").getImage());
+        this.setTitle(title);
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         this.setPreferredSize(new Dimension(500, 600));
         this.setLayout(new BorderLayout());
@@ -17,8 +22,6 @@ public class OpenEvent extends JFrame{
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-        ArrayList<Event> events = Main.events.contains(date);
         ArrayList<JPanel> panels = new ArrayList<>();
 
         //Already existing events

@@ -1,10 +1,10 @@
 import javax.swing.*;
 public class UserFeedback {
-    boolean ask(){
+    boolean ask(String message, String title){
         int confirm = JOptionPane.showOptionDialog(
                 null,
-                "Are you sure you want to exit?",
-                "Exit Confirmation",
+                message,
+                title,
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
                 null,

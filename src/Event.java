@@ -1,8 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Event {
+public class Event implements Serializable{
     boolean favourite;
     String name;
     String description;

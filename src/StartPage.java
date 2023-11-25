@@ -15,7 +15,7 @@ public class StartPage extends JFrame{
             public void windowClosing(WindowEvent e) {
                 if(Main.changed) {
                     UserFeedback userFeedback = new UserFeedback();
-                    boolean confirm = userFeedback.ask();
+                    boolean confirm = userFeedback.ask("Are you sure you want to exit?","Exit Confirmation");
                     if (confirm) System.exit(0);
                 }
                 else System.exit(0);

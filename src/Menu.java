@@ -13,12 +13,7 @@ public class Menu extends JMenuBar{
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.showSaveDialog(null);
             Main.lastChosen = fileChooser.getSelectedFile();
-            if(!Main.changed){
-                new FileInput();
-            }
-            else {
-                if(new UserFeedback().ask()) new FileInput();
-            }
+            new FileInput();
         });
         save.addActionListener(e -> {
             JFileChooser fileChooser = new JFileChooser();

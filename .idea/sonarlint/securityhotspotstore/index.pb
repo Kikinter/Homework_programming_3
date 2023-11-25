@@ -27,3 +27,7 @@ E
 src/EventActions.java,a\c\ac9d85525d286634731497e857cb7b7e9bce5332
 B
 src/FindEvent.java,1\2\12dbcd240fef05cdbd530684c5291a6480869d62
+L
+test/EventContainerTest.java,b\7\b790fbb7b6f2fdcb8e87a0554d67c43edadb566a
+C
+test/FrameTest.java,0\f\0fdc317d09efedc400af8b11bac56128f14aec1e

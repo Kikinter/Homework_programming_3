@@ -1,10 +1,11 @@
 import javax.swing.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class EventContainer{
+public class EventContainer implements Serializable {
     private ArrayList<Event> events = new ArrayList<>();
     private HashMap<Event,Event> repeats = new HashMap<>();
 
@@ -55,7 +56,7 @@ public class EventContainer{
         ArrayList<Event> closeEvents= new ArrayList<>();
         LocalDateTime current = LocalDateTime.now();
         for (Event event : events){
-            long difference = ChronoUnit.DAYS.between(event.startDate, current);
+            long difference = Math.abs(ChronoUnit.DAYS.between(event.startDate, current));
             if( difference <= days && event.startDate.isAfter(current)){
                 closeEvents.add(event);
             }

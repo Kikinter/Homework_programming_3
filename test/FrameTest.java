@@ -57,7 +57,7 @@ public class FrameTest {
     public void testPreviousButton(){
         CalendarWeekly calendarMonthly = new CalendarWeekly();
         ImageIcon icon = new ImageIcon("resources/images/left.png");
-        JButton button = findButtonByIconSource(calendarMonthly, icon);
+        JButton button = findButtonWithName(calendarMonthly, "previous");
         assertNotNull(button);
         button.doClick();
         LocalDate expectedDate = LocalDateTime.now().minusDays(LocalDateTime.now().getDayOfWeek().getValue() - 1 + 7).toLocalDate();
@@ -67,7 +67,7 @@ public class FrameTest {
     public void tesNextButton(){
         CalendarWeekly calendarMonthly = new CalendarWeekly();
         ImageIcon icon = new ImageIcon("resources/images/right.png");
-        JButton button = findButtonByIconSource(calendarMonthly, icon);
+        JButton button = findButtonWithName(calendarMonthly, "next");
         assertNotNull(button);
         button.doClick();
         LocalDate expectedDate = LocalDateTime.now().minusDays(LocalDateTime.now().getDayOfWeek().getValue() - 1).plusDays(7).toLocalDate();
@@ -118,16 +118,18 @@ public class FrameTest {
         }
         return buttonCount;
     }
-    private JButton findButtonByIconSource(Container container, Icon targetIcon) {
+    public static JButton findButtonWithName(Container container, String name) {
         Component[] components = container.getComponents();
+
         for (Component component : components) {
             if (component instanceof JButton) {
                 JButton button = (JButton) component;
-                if (iconsHaveSameSource(button.getIcon(), targetIcon)) {
+                if (button.getName() != null && button.getName().equals(name)) {
                     return button;
                 }
             } else if (component instanceof Container) {
-                JButton button = findButtonByIconSource((Container) component, targetIcon);
+                // If the component is a container, recursively search inside it
+                JButton button = findButtonWithName((Container) component, name);
                 if (button != null) {
                     return button;
                 }
@@ -135,18 +137,4 @@ public class FrameTest {
         }
         return null;
     }
-
-    private boolean iconsHaveSameSource(Icon icon1, Icon icon2) {
-        if (icon1 == null && icon2 == null) {
-            return true;
-        }
-        if (icon1 == null || icon2 == null) {
-            return false;
-        }
-        if (icon1 instanceof ImageIcon imageIcon1 && icon2 instanceof ImageIcon imageIcon2) {
-            return imageIcon1.getImage().getSource().equals(imageIcon2.getImage().getSource());
-        }
-       return false;
-    }
-
 }

@@ -23,7 +23,7 @@ public class CalendarWeekly extends JFrame{
             public void windowClosing(WindowEvent e) {
                 if(Main.changed) {
                     UserFeedback userFeedback = new UserFeedback();
-                    boolean confirm = userFeedback.ask();
+                    boolean confirm = userFeedback.ask("Are you sure you want to exit?","Exit Confirmation");
                     if (confirm) System.exit(0);
                 }
                 else System.exit(0);
@@ -69,7 +69,9 @@ public class CalendarWeekly extends JFrame{
         ImageIcon back = new ImageIcon(new ImageIcon("resources/images/left.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
         ImageIcon forward = new ImageIcon(new ImageIcon("resources/images/right.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
         backDate.setIcon(back);
+        backDate.setName("previous");
         forwardDate.setIcon(forward);
+        forwardDate.setName("next");
         panel.add(backDate);
         panel.add(forwardDate);
 

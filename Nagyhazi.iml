@@ -19,6 +19,8 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="jdom.jdom2" level="project" />
+    <orderEntry type="library" name="eclipse.yasson" level="project" />
   </component>
   <component name="SonarLintModuleSettings">
     <option name="uniqueId" value="bbbf1eb6-1c68-4709-80ca-4a7be643d846" />
