@@ -35,7 +35,7 @@ public class OpenEvent extends JFrame{
                 JLabel fav;
                 if(event.favourite) fav = new JLabel(favourite);
                 else fav = new JLabel(noFavourite);
-                JLabel icon = new JLabel(event.icon);
+                JLabel icon = new JLabel(new ImageIcon(new ImageIcon(event.iconPath).getImage().getScaledInstance(70, 70, Image.SCALE_DEFAULT)));
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.hh.dd HH:mm");
                 String formattedStartDate = event.startDate.format(formatter);
                 String formattedEndDate = event.endDate.format(formatter);
