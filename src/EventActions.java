@@ -3,6 +3,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.io.File;
 import java.time.LocalDateTime;
+import java.time.Year;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -205,8 +206,15 @@ public class EventActions extends JFrame {
                 if (event == null) {
                     if(!Main.events.duplicate(nameField.getText(),(int)startYear.getValue(),(int)startMonth.getValue(),(int)startDay.getValue())) {
                         String iconImage = null;
+                        LocalDateTime check = LocalDateTime.of((int)startYear.getValue(),(int)startMonth.getValue(),1,0,0);
+                        int length = check.getMonth().length(Year.of(check.getYear()).isLeap());
+                        if(length < (int)startDay.getValue()) startDay.setValue(length);
                         LocalDateTime startDate = LocalDateTime.of((int) startYear.getValue(), (int) startMonth.getValue(), (int) startDay.getValue(), (int) startHour.getValue(), (int) startMinute.getValue());
+                        check = LocalDateTime.of((int)endYear.getValue(),(int)endMonth.getValue(),1,0,0);
+                        length = check.getMonth().length(Year.of(check.getYear()).isLeap());
+                        if(length < (int)endDay.getValue()) endDay.setValue(length);
                         LocalDateTime endDate = LocalDateTime.of((int) endYear.getValue(), (int) endMonth.getValue(), (int) endDay.getValue(), (int) endHour.getValue(), (int) endMinute.getValue());
+
                         if (iconPath != null) iconImage = iconPath;
                         Main.events.add(new Event(favourite.isSelected(), nameField.getText(), descriptionField.getText(), startDate, endDate, (int) repeat.getValue(), iconImage));
                         Main.changed = true;
@@ -216,7 +224,13 @@ public class EventActions extends JFrame {
                 } else {
                     Main.events.remove(event);
                     if(!Main.events.duplicate(nameField.getText(),(int)startYear.getValue(),(int)startMonth.getValue(),(int)startDay.getValue())) {
+                        LocalDateTime check = LocalDateTime.of((int)startYear.getValue(),(int)startMonth.getValue(),1,0,0);
+                        int length = check.getMonth().length(Year.of(check.getYear()).isLeap());
+                        if(length < (int)startDay.getValue()) startDay.setValue(length);
                         LocalDateTime startDate = LocalDateTime.of((int) startYear.getValue(), (int) startMonth.getValue(), (int) startDay.getValue(), (int) startHour.getValue(), (int) startMinute.getValue());
+                        check = LocalDateTime.of((int)endYear.getValue(),(int)endMonth.getValue(),1,0,0);
+                        length = check.getMonth().length(Year.of(check.getYear()).isLeap());
+                        if(length < (int)endDay.getValue()) endDay.setValue(length);
                         LocalDateTime endDate = LocalDateTime.of((int) endYear.getValue(), (int) endMonth.getValue(), (int) endDay.getValue(), (int) endHour.getValue(), (int) endMinute.getValue());
                         event.name = nameField.getText();
                         event.description = descriptionField.getText();
