@@ -14,11 +14,23 @@ public class EventActions extends JFrame {
      * This enum represents the user's choice
      */
     enum Type {
+        /**
+         * Add event
+         */
         ADD,
+        /**
+         * Delete event
+         */
         DELETE,
+        /**
+         * Modify event
+         */
         MODIFY
     }
 
+    /**
+     * Icon path to read
+     */
     private String iconPath = null;
 
     /**

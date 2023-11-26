@@ -5,8 +5,13 @@ import java.time.DayOfWeek;
  * This class represents the menu displayed on almost every frame.
  */
 public class Menu extends JMenuBar {
-    // Default day selected and number of days displayed in the menu
+    /**
+     * First day of the week, monday by default
+     */
     DayOfWeek daySelected = DayOfWeek.MONDAY;
+    /**
+     * Number of days which counts as close
+     */
     int days = 7;
 
     /**

@@ -8,9 +8,13 @@ import java.util.HashMap;
  * This class is to store instances of the Event class
  */
 public class EventContainer implements Serializable {
-    //The events
+    /**
+     * The events
+     */
     private ArrayList<Event> events = new ArrayList<>();
-    //The repeating events
+    /**
+     * The repeating events
+     */
     private HashMap<Event,Event> repeats = new HashMap<>();
 
     /**

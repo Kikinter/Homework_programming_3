@@ -5,12 +5,33 @@ import java.time.LocalDateTime;
  * This class represents one event in the calendar
  */
 public class Event implements Serializable{
+    /**
+     * Is the event a favourite
+     */
     boolean favourite;
+    /**
+     * Name of the event
+     */
     String name;
+    /**
+     * Description of event
+     */
     String description;
+    /**
+     * Start of the event
+     */
     LocalDateTime startDate;
+    /**
+     * End of event
+     */
     LocalDateTime endDate;
+    /**
+     * Days between repeating
+     */
     int daysBetween;
+    /**
+     * Path to icon
+     */
     String iconPath;
 
     /**

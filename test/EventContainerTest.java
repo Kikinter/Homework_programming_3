@@ -10,7 +10,13 @@ import static org.junit.Assert.*;
  * Test class for event container testing
  */
 public class EventContainerTest {
+    /**
+     * An event container for tests
+     */
     EventContainer container;
+    /**
+     * An event for tests
+     */
     Event event;
 
     /**
