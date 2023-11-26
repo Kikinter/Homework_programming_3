@@ -9,13 +9,23 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
-//This class has test for StartPage, CalendarWeekly and EventActions as well
+/**
+ * Test class for StartPage, CalendarWeekly and EventActions
+ */
 public class FrameTest {
+
+    /**
+     * This method sets up a new container and sets the date to today before every test
+     */
     @Before
     public void setUp(){
         Main.events = new EventContainer();
         Main.dateShown = LocalDateTime.now();
     }
+
+    /**
+     * This tests the start page's new calendar button
+     */
     @Test
     public void testNewCalendarButtonPress() {
             StartPage startPage = new StartPage();
@@ -25,6 +35,9 @@ public class FrameTest {
             assertTrue(Main.currentFrame instanceof CalendarMonthly);
             startPage.dispose();
     }
+    /**
+     * This tests the add button of event actions
+     */
     @Test
     public void testAdd(){
         EventActions eventActions = new EventActions(EventActions.Type.ADD);
@@ -34,6 +47,9 @@ public class FrameTest {
         assertEquals(2,Main.events.size());
         eventActions.dispose();
     }
+    /**
+     * This tests the delete button of event actions
+     */
     @Test
     public void testDelete(){
         EventActions eventActions = new EventActions(EventActions.Type.DELETE);
@@ -45,6 +61,9 @@ public class FrameTest {
         delete.doClick();
         assertEquals(0,Main.events.size());
     }
+    /**
+     * This tests the number of weekly view's buttons
+     */
     @Test
     public void testNumberOfButtons(){
         CalendarWeekly weekly = new CalendarWeekly();
@@ -53,6 +72,9 @@ public class FrameTest {
         assertEquals(9,numberOfButtons);
         weekly.dispose();
     }
+    /**
+     * This tests previous button of weekly view
+     */
     @Test
     public void testPreviousButton(){
         CalendarWeekly calendarMonthly = new CalendarWeekly();
@@ -63,6 +85,9 @@ public class FrameTest {
         LocalDate expectedDate = LocalDateTime.now().minusDays(LocalDateTime.now().getDayOfWeek().getValue() - 1 + 7).toLocalDate();
         assertEquals(expectedDate, Main.dateShown.toLocalDate());
     }
+    /**
+     * This tests next button of weekly view
+     */
     @Test
     public void tesNextButton(){
         CalendarWeekly calendarMonthly = new CalendarWeekly();
@@ -74,6 +99,11 @@ public class FrameTest {
         assertEquals(expectedDate, Main.dateShown.toLocalDate());
     }
 
+    /**
+     * This method gives back the first checkbox of the frame
+     * @param container the frame where we want to find a checkbox
+     * @return the first checkbox
+     */
     private JCheckBox findCheckbox(Container container) {
         Component[] components = container.getComponents();
         for (Component component : components) {
@@ -89,6 +119,12 @@ public class FrameTest {
         return null;
     }
 
+    /**
+     * This method finds the button with the given text
+     * @param container the frame where we want to find the button
+     * @param buttonText the text of the button
+     * @return the found button
+     */
     private JButton findButton(Container container, String buttonText) {
         Component[] components = container.getComponents();
         for (Component component : components) {
@@ -106,6 +142,12 @@ public class FrameTest {
         }
         return null;
     }
+
+    /**
+     * This method returns the number of buttons on the frame
+     * @param container the frame where we want to count the buttons
+     * @return number of buttons
+     */
     private int countButtons(Container container) {
         int buttonCount = 0;
         Component[] components = container.getComponents();
@@ -118,6 +160,12 @@ public class FrameTest {
         }
         return buttonCount;
     }
+    /**
+     * This method finds the button with the given name
+     * @param container the frame where we want to find the button
+     * @param name the name of the button
+     * @return the found button
+     */
     public static JButton findButtonWithName(Container container, String name) {
         Component[] components = container.getComponents();
 
