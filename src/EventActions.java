@@ -300,6 +300,7 @@ public class EventActions extends JFrame {
                         JOptionPane.showMessageDialog(this, "The event you want to save already exists", "Duplicate", JOptionPane.INFORMATION_MESSAGE);
                     }
                 }
+                this.dispose();
         });
 
         //Adding everything to panel
@@ -308,7 +309,6 @@ public class EventActions extends JFrame {
         panel5.add(new JLabel("How many days before it repeats"));
         panel5.add(repeat);
         panel5.add(icon);
-        panel5.add(image);
         mainPanel.add(panel1);
         mainPanel.add(panel2);
         mainPanel.add(panel3);

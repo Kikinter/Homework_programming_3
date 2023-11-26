@@ -2,10 +2,8 @@
 7
 java:S1220""Move this file to a named package.8áñú·À1
 S
-java:S2696"6Make the enclosing method "static" or remove this set.(¥ŸÏ¨8·òú·À1
+java:S2696#"6Make the enclosing method "static" or remove this set.(¥ŸÏ¨8·òú·À1
 Q
-java:S2864"4Iterate over the "entrySet" instead of the "keySet".(ƒË å8¸òú·À1
+java:S28646"4Iterate over the "entrySet" instead of the "keySet".(ƒË å8¸òú·À1
 Q
-java:S2864&"4Iterate over the "entrySet" instead of the "keySet".(ƒË å8¹òú·À1
-J
-java:S1128"(Remove this unused import 'javax.swing'.(Ìí¿Üüÿÿÿÿ8ã¢ÃÀ1
+java:S2864E"4Iterate over the "entrySet" instead of the "keySet".(ƒË å8¹òú·À1

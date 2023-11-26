@@ -31,6 +31,8 @@ public class Menu extends JMenuBar {
             fileChooser.showSaveDialog(null);
             Main.lastChosen = fileChooser.getSelectedFile();
             new FileInput();
+            Main.currentFrame.dispose();
+            Main.currentFrame = new CalendarMonthly();
         });
 
         // ActionListener for saving events
