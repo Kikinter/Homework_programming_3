@@ -2,8 +2,17 @@ import javax.swing.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class FindEvent{
-    Event getEvent(){
+/**
+ * This class is for searching events.
+ */
+public class FindEvent {
+    /**
+     * This function finds the event based on either name or date.
+     *
+     * @return the found event
+     */
+    Event getEvent() {
+        // Options for searching by name or date
         Object[] options = {"Name", "Date"};
         int option = JOptionPane.showOptionDialog(
                 null,
@@ -15,24 +24,29 @@ public class FindEvent{
                 options,
                 null);
 
-        //Name
+        // List to store found events
         ArrayList<Event> found = new ArrayList<>();
-        if(option == 0){
+
+        // Search by Name
+        if (option == 0) {
             found.addAll(getName(Main.events.getEvents()));
         }
-        //Date
+        // Search by Date
         else {
             found.addAll(getDate(Main.events.getEvents()));
         }
-        if(found.size() == 1) return found.get(0);
-        //Select from found events
-        else if(found.size() > 1){
+
+        // If only one event is found, return it
+        if (found.size() == 1) return found.get(0);
+            // If multiple events are found, let the user choose from them
+        else if (found.size() > 1) {
             // Create an array of event names
             String[] eventNames = new String[found.size()];
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
             for (int i = 0; i < found.size(); i++) {
-                eventNames[i] = found.get(i).name + ": "+ found.get(i).startDate.format(formatter);
+                eventNames[i] = found.get(i).name + ": " + found.get(i).startDate.format(formatter);
             }
+
             // Show a JOptionPane with a JComboBox to select the event
             String selectedEvent = (String) JOptionPane.showInputDialog(
                     null,
@@ -55,9 +69,17 @@ public class FindEvent{
         return null;
     }
 
-    private ArrayList<Event> getName(ArrayList<Event> events){
+    /**
+     * This function returns every event matching the name the user gave.
+     *
+     * @param events every event to search from
+     * @return events that match the criteria
+     */
+    private ArrayList<Event> getName(ArrayList<Event> events) {
         ArrayList<Event> found = new ArrayList<>();
+        // Get the name from the user
         String name = JOptionPane.showInputDialog(new JFrame(), "Type in the name of the event you want to modify!");
+        // Search for events with the given name
         for (Event event : events) {
             if (event.name.equals(name)) {
                 found.add(event);
@@ -65,13 +87,22 @@ public class FindEvent{
         }
         return found;
     }
-    private ArrayList<Event> getDate(ArrayList<Event> events){
-        String date="";
+
+    /**
+     * This function returns every event matching the date the user gave.
+     *
+     * @param events every event to search from
+     * @return events that match the criteria
+     */
+    private ArrayList<Event> getDate(ArrayList<Event> events) {
+        String date = "";
         ArrayList<Event> found = new ArrayList<>();
+        // Get the date from the user in the format YYYY.MM.DD
         while (date != null && date.split("\\.").length != 3) {
             date = JOptionPane.showInputDialog(new JFrame(), "Type in the date of the event you want to modify!(YYYY.MM.DD)");
         }
-        if(date != null) {
+        // If a valid date is provided, search for events with the given date
+        if (date != null) {
             String[] parts = date.split("\\.");
             for (Event event : events) {
                 if (event.startDate.getYear() == Integer.parseInt(parts[0]) && event.startDate.getMonthValue() == Integer.parseInt(parts[1]) && event.startDate.getDayOfMonth() == Integer.parseInt(parts[2])) {
@@ -79,8 +110,9 @@ public class FindEvent{
                 }
             }
             return found;
+        } else {
+            // Return an empty list if the user cancels the operation
+            return new ArrayList<>();
         }
-        else return new ArrayList<>();
     }
-
 }

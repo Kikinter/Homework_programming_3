@@ -12,44 +12,61 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is to manage the input from files.
+ */
 public class FileInput {
-    FileInput(){
-        try{
+    /**
+     * The constructor sets up the file input.
+     */
+    FileInput() {
+        try {
             String[] fileName;
-            if(Main.lastChosen != null) fileName = Main.lastChosen.getName().split("\\.");
+            if (Main.lastChosen != null) fileName = Main.lastChosen.getName().split("\\.");
             else throw new Exception("No file was chosen");
-            String extention = null;
-            if(fileName.length == 2) extention = fileName[1];
-            if(extention == null) throw new Exception("No extension was given");
-            if(extention.equals("txt") || extention.equals("xml") || extention.equals("json")){
+            String extension = null;
+            if (fileName.length == 2) extension = fileName[1];
+            if (extension == null) throw new Exception("No extension was given");
+            if (extension.equals("txt") || extension.equals("xml") || extension.equals("json")) {
                 UserFeedback feedback = new UserFeedback();
-                if(!Main.changed || feedback.ask("Are you sure you don't want to save your changes?","Unsaved changes")){
-                    switch (extention){
+                if (!Main.changed || feedback.ask("Are you sure you don't want to save your changes?", "Unsaved changes")) {
+                    switch (extension) {
                         case "txt" -> readTxt(Main.lastChosen);
                         case "xml" -> readXml(Main.lastChosen);
                         case "json" -> readJson(Main.lastChosen);
                     }
                     openEvents();
                 }
-            }
-            else throw new Exception("Wrong extension");
-        } catch (Exception e){
+            } else throw new Exception("Wrong extension");
+        } catch (Exception e) {
             new ErrorMessage(e);
         }
     }
 
-    private void readTxt(File file) throws Exception{
+    /**
+     * This function is for reading from a txt file.
+     *
+     * @param file the file to read from
+     * @throws Exception the error occurred during the file reading
+     */
+    private void readTxt(File file) throws Exception {
         try {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
             Object obj = ois.readObject();
             Main.events = (EventContainer) obj;
             ois.close();
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new Exception("No such file");
         }
-
     }
-    private void readXml(File file) throws Exception{
+
+    /**
+     * This function is for reading from a xml file.
+     *
+     * @param file the file to read from
+     * @throws Exception the error occurred during the file reading
+     */
+    private void readXml(File file) throws Exception {
         try {
             SAXBuilder saxBuilder = new SAXBuilder();
             Document document = saxBuilder.build(file);
@@ -70,18 +87,24 @@ public class FileInput {
 
                 int daysBetween = Integer.parseInt(eventElement.getChildText("daysBetween"));
 
-
                 Element iconElement = eventElement.getChild("icon");
                 String iconPath = (iconElement != null) ? iconElement.getText() : null;
                 Event event = new Event(favourite, name, description, startDate, endDate, daysBetween, iconPath);
                 eventContainer.add(event);
             }
             Main.events = eventContainer;
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new Exception("No such file");
         }
     }
-    private void readJson(File file) throws Exception{
+
+    /**
+     * This function is for reading from a json file.
+     *
+     * @param file the file to read from
+     * @throws Exception the error occurred during the file reading
+     */
+    private void readJson(File file) throws Exception {
         try {
             // Create a JsonReader from the file
             try (JsonReader jsonReader = Json.createReader(new FileReader(file))) {
@@ -122,12 +145,15 @@ public class FileInput {
             throw new Exception("Error reading JSON file");
         }
     }
-    private void openEvents(){
+
+    /**
+     * This function displays the close events for the user.
+     */
+    private void openEvents() {
         ArrayList<Event> events = new ArrayList<>(Main.events.getCloseElement(Main.menu.days));
-        if(!events.isEmpty())new OpenEvent(events, "Upcoming events");
+        if (!events.isEmpty()) new OpenEvent(events, "Upcoming events");
         else {
-            JOptionPane.showMessageDialog(null, "No upcoming events","Upcoming events", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No upcoming events", "Upcoming events", JOptionPane.INFORMATION_MESSAGE);
         }
     }
-
 }
