@@ -5,38 +5,57 @@ import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 import java.io.*;
 
+/**
+ * This class is for writing into files.
+ */
 public class FileOutput {
-    FileOutput(){
-        try{
+    /**
+     * The constructor sets up the file output.
+     */
+    FileOutput() {
+        try {
             String[] fileName;
-            if(Main.lastChosen != null) fileName = Main.lastChosen.getName().split("\\.");
+            if (Main.lastChosen != null) fileName = Main.lastChosen.getName().split("\\.");
             else throw new Exception("No file was chosen");
-            String extention = null;
-            if(fileName.length == 2) extention = fileName[1];
-            if(extention.equals("txt") || extention .equals("xml") || extention.equals("json")){
-                switch (extention){
+            String extension = null;
+            if (fileName.length == 2) extension = fileName[1];
+            if (extension.equals("txt") || extension.equals("xml") || extension.equals("json")) {
+                switch (extension) {
                     case "txt" -> writeTxt(Main.lastChosen);
                     case "xml" -> writeXml(Main.lastChosen);
                     case "json" -> writeJson(Main.lastChosen);
                 }
                 Main.changed = false;
-            }
-            else throw new Exception("Wrong type of extention");
-        } catch (Exception e){
+            } else throw new Exception("Wrong type of extension");
+        } catch (Exception e) {
             new ErrorMessage(e);
         }
     }
-    private void writeTxt(File file) {
+
+    /**
+     * This function is for writing into a txt file.
+     *
+     * @param file the file to read from
+     * @throws Exception the error occurred during the file writing
+     */
+    private void writeTxt(File file) throws Exception {
         try {
             file.getParentFile().mkdirs();
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
             oos.writeObject(Main.events);
             oos.close();
         } catch (Exception e) {
-            new ErrorMessage(new Exception("Something went wrong"));
+            throw new Exception("There was a problem during the writing");
         }
     }
-    private void writeXml(File filename) throws Exception{
+
+    /**
+     * This function is for writing into an xml file.
+     *
+     * @param filename the file to read from
+     * @throws Exception the error occurred during the file writing
+     */
+    private void writeXml(File filename) throws Exception {
         Element rootElement = new Element("events");
         Document document = new Document(rootElement);
 
@@ -50,19 +69,25 @@ public class FileOutput {
             eventElement.addContent(new Element("startDate").setText(event.startDate.toString()));
             eventElement.addContent(new Element("endDate").setText(event.endDate.toString()));
             eventElement.addContent(new Element("daysBetween").setText(String.valueOf(event.daysBetween)));
-            if(event.iconPath != null)eventElement.addContent(new Element("icon").setText(event.iconPath));
-            // Assuming your Event class has a method to get the icon path*/
+            if (event.iconPath != null) eventElement.addContent(new Element("icon").setText(event.iconPath));
             rootElement.addContent(eventElement);
         }
 
         XMLOutputter xmlOutputter = new XMLOutputter(Format.getPrettyFormat());
         try (FileOutputStream fos = new FileOutputStream(filename)) {
             xmlOutputter.output(document, fos);
-        }   catch (IOException e) {
-            throw new Exception("There was a problem with the file");
+        } catch (IOException e) {
+            throw new Exception("There was a problem during the writing");
         }
     }
-    private void writeJson(File filename){
+
+    /**
+     * This function is for writing into a json file.
+     *
+     * @param filename the file to read from
+     * @throws Exception the error occurred during the file writing
+     */
+    private void writeJson(File filename) throws Exception {
         try {
             EventContainer eventContainer = Main.events;
 
@@ -78,7 +103,7 @@ public class FileOutput {
                         .add("endDate", event.endDate.toString())
                         .add("daysBetween", event.daysBetween);
 
-                if(event.iconPath != null) eventBuilder.add("icon", event.iconPath);
+                if (event.iconPath != null) eventBuilder.add("icon", event.iconPath);
                 // Add the event object to the array
                 jsonArrayBuilder.add(eventBuilder);
             }
@@ -98,10 +123,8 @@ public class FileOutput {
                 jsonWriter.writeObject(studentJson);
                 jsonWriter.close();
             }
-
         } catch (IOException e) {
-            // Handle the exception according to your application's needs
-            e.printStackTrace();
+            throw new Exception("There was a problem during the writing");
         }
     }
 }

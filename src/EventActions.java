@@ -1,13 +1,18 @@
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.io.File;
 import java.time.LocalDateTime;
 import java.time.Year;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * This class is for adding, deleting and modifying events
+ */
 public class EventActions extends JFrame {
+    /**
+     * This enum represents the user's choice
+     */
     enum Type {
         ADD,
         DELETE,
@@ -16,7 +21,12 @@ public class EventActions extends JFrame {
 
     private String iconPath = null;
 
+    /**
+     * @param type the modification type, the user selected
+     *             The constructor makes the frame and sets it visible
+     */
     EventActions(Type type) {
+        //Setup frame
         this.setTitle(type.name());
         this.setPreferredSize(new Dimension(1000, 400));
         JScrollPane scrollPane = new JScrollPane();
@@ -26,17 +36,25 @@ public class EventActions extends JFrame {
         boolean emptyContainer = Main.events.size() == 0;
         boolean success = true;
         JPanel mainPanel = new JPanel();
+        //Choose action
         switch (type) {
             case ADD -> setupAdd(emptyContainer,mainPanel);
             case DELETE -> setupDelete(panel,emptyContainer);
             case MODIFY -> success = setupModify(emptyContainer,mainPanel);
         }
+        //Set frame visible
         if(!emptyContainer && success) {
             this.pack();
             this.setLocationRelativeTo(null);
             this.setVisible(true);
         }
     }
+
+    /**
+     * @param emptyContainer true if the calendar is empty, false otherwise
+     * @param mainPanel the panel that displays the event that can be added
+     *                  This function sets up the frame for adding an event
+     */
     private void setupAdd(boolean emptyContainer, JPanel mainPanel){
         setUpPanel(mainPanel,null);
         if (emptyContainer) {
@@ -47,16 +65,23 @@ public class EventActions extends JFrame {
 
     }
 
+    /**
+     * @param panel the panel that displays the events that could be deleted
+     * @param emptyContainer false if there are no events in the calendar, true otherwise
+     *                       This function sets up the panel for events that can be deleted
+     */
     private void setupDelete(JPanel panel, boolean emptyContainer){
         if (emptyContainer) {
             JOptionPane.showMessageDialog(this, "No events to be deleted.");
         } else {
+            //Checkboxes for every event
             JCheckBox[] checkBoxes = new JCheckBox[Main.events.size()];
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
             for (int i = 0; i < Main.events.size(); i++) {
                 checkBoxes[i] = new JCheckBox(Main.events.get(i).name + " " + Main.events.get(i).startDate.format(formatter));
                 panel.add(checkBoxes[i]);
             }
+            //Button to save changes
             JButton finish = new JButton("Delete");
             finish.addActionListener(e -> {
                 ArrayList<Event> delete = new ArrayList<>();
@@ -76,6 +101,12 @@ public class EventActions extends JFrame {
         }
     }
 
+    /**
+     * @param emptyContainer true if there are no events in the calendar
+     * @param mainPanel the panel that displays the events that can be modified
+     * @return true if there are events that can be modified
+     *              This function makes the panel for the modification
+     */
     private boolean setupModify(boolean emptyContainer, JPanel mainPanel){
         if (emptyContainer) {
             JOptionPane.showMessageDialog(this, "No events to be modified.");
@@ -92,7 +123,14 @@ public class EventActions extends JFrame {
                 }
         }
     }
+
+    /**
+     * @param mainPanel the panel that displays the event
+     * @param event the event that is going to be displayed
+     *              This function is to set up the panel for the add or the modify action
+     */
     private void setUpPanel(JPanel mainPanel, Event event){
+        //Setup shown event
         String name,description,buttonText;
         int yearStart,monthStart,dayStart,hourStart,minuteStart, yearEnd,monthEnd,dayEnd,hourEnd,minuteEnd,repeatNumber;
         boolean selected;
@@ -134,7 +172,7 @@ public class EventActions extends JFrame {
         }
 
 
-
+        //Setup panels
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         JPanel panel1 = new JPanel();
         panel1.setLayout(new BorderLayout());
@@ -143,17 +181,20 @@ public class EventActions extends JFrame {
         JPanel panel3 = new JPanel();
         JPanel panel4 = new JPanel();
         JPanel panel5 = new JPanel();
+
         //Name
         JTextField nameField = new JTextField(name);
         panel1.add(nameField);
+
         //Description
         JTextArea descriptionField = new JTextArea(description);
         panel2.add(descriptionField);
+
         //StartDate and EndDate
         panel3.setLayout(new FlowLayout());
+
         //Start
         String y = "Year :", m = "Month: ", d = "Day: ", h = "Hour: ", mi = "Minute: ";
-
         panel3.add(new JLabel("START DATE:"));
         panel3.add(new JLabel(y));
         JSpinner startYear = new JSpinner(new SpinnerNumberModel(yearStart,1900,2100,1));
@@ -193,6 +234,8 @@ public class EventActions extends JFrame {
         favourite.setSelected(selected);
         JSpinner repeat = new JSpinner(new SpinnerNumberModel(repeatNumber, 0, 365, 1));
         JButton icon = new JButton("Icon");
+
+        //Image add
         JLabel image = new JLabel(new ImageIcon(imgPath));
         icon.addActionListener(e -> {
             JFileChooser fileChooser = new JFileChooser();
@@ -201,20 +244,20 @@ public class EventActions extends JFrame {
             if (returnValue == JFileChooser.APPROVE_OPTION) iconPath = fileChooser.getSelectedFile().getAbsolutePath();
         });
 
+        //Button to finish changes
         JButton finish = new JButton(buttonText);
         finish.addActionListener(e -> {
                 if (event == null) {
+                    LocalDateTime check = LocalDateTime.of((int)startYear.getValue(),(int)startMonth.getValue(),1,0,0);
+                    int length = check.getMonth().length(Year.of(check.getYear()).isLeap());
+                    if(length < (int)startDay.getValue()) startDay.setValue(length);
                     if(!Main.events.duplicate(nameField.getText(),(int)startYear.getValue(),(int)startMonth.getValue(),(int)startDay.getValue())) {
                         String iconImage = null;
-                        LocalDateTime check = LocalDateTime.of((int)startYear.getValue(),(int)startMonth.getValue(),1,0,0);
-                        int length = check.getMonth().length(Year.of(check.getYear()).isLeap());
-                        if(length < (int)startDay.getValue()) startDay.setValue(length);
                         LocalDateTime startDate = LocalDateTime.of((int) startYear.getValue(), (int) startMonth.getValue(), (int) startDay.getValue(), (int) startHour.getValue(), (int) startMinute.getValue());
                         check = LocalDateTime.of((int)endYear.getValue(),(int)endMonth.getValue(),1,0,0);
                         length = check.getMonth().length(Year.of(check.getYear()).isLeap());
                         if(length < (int)endDay.getValue()) endDay.setValue(length);
                         LocalDateTime endDate = LocalDateTime.of((int) endYear.getValue(), (int) endMonth.getValue(), (int) endDay.getValue(), (int) endHour.getValue(), (int) endMinute.getValue());
-
                         if (iconPath != null) iconImage = iconPath;
                         Main.events.add(new Event(favourite.isSelected(), nameField.getText(), descriptionField.getText(), startDate, endDate, (int) repeat.getValue(), iconImage));
                         Main.changed = true;
@@ -223,10 +266,10 @@ public class EventActions extends JFrame {
                     }
                 } else {
                     Main.events.remove(event);
+                    LocalDateTime check = LocalDateTime.of((int)startYear.getValue(),(int)startMonth.getValue(),1,0,0);
+                    int length = check.getMonth().length(Year.of(check.getYear()).isLeap());
+                    if(length < (int)startDay.getValue()) startDay.setValue(length);
                     if(!Main.events.duplicate(nameField.getText(),(int)startYear.getValue(),(int)startMonth.getValue(),(int)startDay.getValue())) {
-                        LocalDateTime check = LocalDateTime.of((int)startYear.getValue(),(int)startMonth.getValue(),1,0,0);
-                        int length = check.getMonth().length(Year.of(check.getYear()).isLeap());
-                        if(length < (int)startDay.getValue()) startDay.setValue(length);
                         LocalDateTime startDate = LocalDateTime.of((int) startYear.getValue(), (int) startMonth.getValue(), (int) startDay.getValue(), (int) startHour.getValue(), (int) startMinute.getValue());
                         check = LocalDateTime.of((int)endYear.getValue(),(int)endMonth.getValue(),1,0,0);
                         length = check.getMonth().length(Year.of(check.getYear()).isLeap());
@@ -246,6 +289,8 @@ public class EventActions extends JFrame {
                     }
                 }
         });
+
+        //Adding everything to panel
         panel5.add(new JLabel("Favourite"));
         panel5.add(favourite);
         panel5.add(new JLabel("How many days before it repeats"));
@@ -260,5 +305,4 @@ public class EventActions extends JFrame {
         mainPanel.add(finish);
         this.add(mainPanel);
     }
-
 }
